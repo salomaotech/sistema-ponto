@@ -12,13 +12,16 @@ public class Ponto {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id_registro;
 
-    @OneToOne
+    @ManyToOne
+    @JoinColumn(name = "funcionario_id")
     private Funcionarios funcionarios;
 
-    @OneToOne
+    @ManyToOne
+    @JoinColumn(name = "turno_id")
     private Turnos turnos;
 
-    @OneToOne
+    @ManyToOne
+    @JoinColumn(name = "justificativa_id")
     private Justificativa justificativa;
 
     private LocalDate data;

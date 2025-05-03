@@ -2,9 +2,11 @@ package com.ana.coutinho.ponto.controller;
 
 import com.ana.coutinho.ponto.model.Funcionarios;
 import com.ana.coutinho.ponto.model.Justificativa;
+import com.ana.coutinho.ponto.model.Ponto;
 import com.ana.coutinho.ponto.model.Turnos;
 import com.ana.coutinho.ponto.repository.FuncionariosRepository;
 import com.ana.coutinho.ponto.repository.JustificativaRepository;
+import com.ana.coutinho.ponto.repository.PontoRepository;
 import com.ana.coutinho.ponto.repository.TurnosRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -27,6 +29,9 @@ public class ViewController {
 
     @Autowired
     private JustificativaRepository justificativaRepository;
+
+    @Autowired
+    private PontoRepository pontoRepository;
 
     @GetMapping("/home")
     public ModelAndView home() {
@@ -125,6 +130,36 @@ public class ViewController {
 
         return mv;
 
+    }
+
+
+    @GetMapping("/cadastro_ponto")
+    public ModelAndView cadastroPonto() {
+        ModelAndView mv = new ModelAndView("cadastro_ponto");
+        mv.addObject("ponto", new Ponto());
+        mv.addObject("listaFuncionarios", funcionariosRepository.findAll());
+        mv.addObject("listaTurnos", turnosRepository.findAll());
+        mv.addObject("listaJustificativas", justificativaRepository.findAll());
+        return mv;
+    }
+
+
+    @GetMapping("/cadastro_ponto/{id}")
+    public ModelAndView abreCadastroPonto(@PathVariable("id") long id) {
+        Optional<Ponto> cadastro = pontoRepository.findById(id);
+        ModelAndView mv = new ModelAndView("cadastro_ponto");
+
+        if (cadastro.isPresent()) {
+            mv.addObject("ponto", cadastro.get());
+        } else {
+            mv.addObject("ponto", new Ponto());
+        }
+
+        mv.addObject("listaFuncionarios", funcionariosRepository.findAll());
+        mv.addObject("listaTurnos", turnosRepository.findAll());
+        mv.addObject("listaJustificativas", justificativaRepository.findAll());
+
+        return mv;
     }
 
 

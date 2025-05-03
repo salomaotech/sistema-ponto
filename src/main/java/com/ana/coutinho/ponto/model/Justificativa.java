@@ -1,9 +1,6 @@
 package com.ana.coutinho.ponto.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 
 @Entity
 public class Justificativa {
@@ -14,12 +11,24 @@ public class Justificativa {
 
     private String descricao;
 
+    @ManyToOne
+    @JoinColumn(name = "funcionario_id")
+    private Funcionarios funcionarios;
+
     public long getId_justificativa() {
         return id_justificativa;
     }
 
     public void setId_justificativa(long id_justificativa) {
         this.id_justificativa = id_justificativa;
+    }
+
+    public Funcionarios getFuncionarios() {
+        return funcionarios;
+    }
+
+    public void setFuncionarios(Funcionarios funcionarios) {
+        this.funcionarios = funcionarios;
     }
 
     public String getDescricao() {

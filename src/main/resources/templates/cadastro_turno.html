@@ -20,6 +20,8 @@
 
         <form th:action="@{/turno}" method="post" th:object="${turno}">
 
+            <input type="hidden" th:field="*{id_turno}"/>
+
             <label for="turno">Nome do turno:</label>
             <input type="text" id="turno" th:field="*{turno}" required>
 

@@ -1,8 +1,10 @@
 package com.ana.coutinho.ponto.controller;
 
 import com.ana.coutinho.ponto.model.Funcionarios;
+import com.ana.coutinho.ponto.model.Justificativa;
 import com.ana.coutinho.ponto.model.Turnos;
 import com.ana.coutinho.ponto.repository.FuncionariosRepository;
+import com.ana.coutinho.ponto.repository.JustificativaRepository;
 import com.ana.coutinho.ponto.repository.TurnosRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -22,6 +24,9 @@ public class ViewController {
 
     @Autowired
     private TurnosRepository turnosRepository;
+
+    @Autowired
+    private JustificativaRepository justificativaRepository;
 
     @GetMapping("/home")
     public ModelAndView home() {
@@ -84,6 +89,39 @@ public class ViewController {
             mv.addObject("turno", cadastro.get());
 
         }
+
+        return mv;
+
+    }
+
+    @GetMapping("/cadastro_justificativa")
+    public ModelAndView cadastroJustificativa() {
+
+        ModelAndView mv = new ModelAndView("cadastro_justificativa");
+        mv.addObject("justificativa", new Justificativa());
+        mv.addObject("listaFuncionarios", funcionariosRepository.findAll());
+        return mv;
+
+    }
+
+    @GetMapping("/cadastro_justificativa/{id}")
+    public ModelAndView abreCadastroJustificativa(@PathVariable("id") long id) {
+
+        Optional<Justificativa> cadastro = justificativaRepository.findById(id);
+        ModelAndView mv = new ModelAndView("cadastro_justificativa");
+
+        // Verificar se a justificativa existe
+        if (cadastro.isPresent()) {
+
+            mv.addObject("justificativa", cadastro.get());
+        } else {
+
+            mv.addObject("justificativa", new Justificativa());
+
+        }
+
+        // Passar a lista de funcionários para o select
+        mv.addObject("listaFuncionarios", funcionariosRepository.findAll());
 
         return mv;
 

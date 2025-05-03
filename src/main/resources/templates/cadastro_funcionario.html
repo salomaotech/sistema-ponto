@@ -20,6 +20,8 @@
 
         <form th:action="@{/funcionario}" method="post" th:object="${funcionario}">
 
+            <input type="hidden" th:field="*{id_funcionario}"/>
+
             <label for="nome">* Nome do funcionário:</label>
             <input type="text" id="nome" th:field="*{nome}" required>
 

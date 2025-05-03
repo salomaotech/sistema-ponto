@@ -1,7 +1,9 @@
 package com.ana.coutinho.ponto.controller;
 
 import com.ana.coutinho.ponto.model.Funcionarios;
+import com.ana.coutinho.ponto.model.Turnos;
 import com.ana.coutinho.ponto.repository.FuncionariosRepository;
+import com.ana.coutinho.ponto.repository.TurnosRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,6 +19,9 @@ public class ViewController {
 
     @Autowired
     private FuncionariosRepository funcionariosRepository;
+
+    @Autowired
+    private TurnosRepository turnosRepository;
 
     @GetMapping("/home")
     public ModelAndView home() {
@@ -41,11 +46,11 @@ public class ViewController {
         Optional<Funcionarios> cadastro = funcionariosRepository.findById(id);
         ModelAndView mv = new ModelAndView("cadastro_funcionario");
 
-        if(cadastro.isEmpty()){
+        if (cadastro.isEmpty()) {
 
             mv.addObject("funcionario", new Funcionarios());
 
-        }else{
+        } else {
 
             mv.addObject("funcionario", cadastro.get());
 
@@ -55,10 +60,34 @@ public class ViewController {
 
     }
 
+    @GetMapping("/cadastro_turno")
+    public ModelAndView cadastroTurno() {
 
+        ModelAndView mv = new ModelAndView("cadastro_turno");
+        mv.addObject("turno", new Turnos());
+        return mv;
 
+    }
 
+    @GetMapping("/cadastro_turno/{id}")
+    public ModelAndView abreCadastroTurno(@PathVariable("id") long id) {
 
+        Optional<Turnos> cadastro = turnosRepository.findById(id);
+        ModelAndView mv = new ModelAndView("cadastro_turno");
+
+        if (cadastro.isEmpty()) {
+
+            mv.addObject("turno", new Turnos());
+
+        } else {
+
+            mv.addObject("turno", cadastro.get());
+
+        }
+
+        return mv;
+
+    }
 
 
 }

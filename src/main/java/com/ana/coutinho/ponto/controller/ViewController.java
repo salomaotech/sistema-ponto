@@ -132,7 +132,6 @@ public class ViewController {
 
     }
 
-
     @GetMapping("/cadastro_ponto")
     public ModelAndView cadastroPonto() {
         ModelAndView mv = new ModelAndView("cadastro_ponto");
@@ -142,7 +141,6 @@ public class ViewController {
         mv.addObject("listaJustificativas", justificativaRepository.findAll());
         return mv;
     }
-
 
     @GetMapping("/cadastro_ponto/{id}")
     public ModelAndView abreCadastroPonto(@PathVariable("id") long id) {

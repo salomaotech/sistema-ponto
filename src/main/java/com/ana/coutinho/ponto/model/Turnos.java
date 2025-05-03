@@ -8,7 +8,7 @@ import jakarta.persistence.Id;
 import java.time.LocalTime;
 
 @Entity
-public class CadastroTurnos {
+public class Turnos {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

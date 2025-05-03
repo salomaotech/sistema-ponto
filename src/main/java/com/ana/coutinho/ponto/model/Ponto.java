@@ -6,20 +6,20 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 
 @Entity
-public class RegistroPonto {
+public class Ponto {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id_registro;
 
     @OneToOne
-    private CadastroFuncionarios cadastroFuncionarios;
+    private Funcionarios funcionarios;
 
     @OneToOne
-    private CadastroTurnos cadastroTurnos;
+    private Turnos turnos;
 
     @OneToOne
-    private CadastroJustificativa cadastroJustificativa;
+    private Justificativa justificativa;
 
     private LocalDate data;
     private LocalTime horarioEntrada;
@@ -34,28 +34,28 @@ public class RegistroPonto {
         this.id_registro = id_registro;
     }
 
-    public CadastroFuncionarios getCadastroFuncionarios() {
-        return cadastroFuncionarios;
+    public Funcionarios getCadastroFuncionarios() {
+        return funcionarios;
     }
 
-    public void setCadastroFuncionarios(CadastroFuncionarios cadastroFuncionarios) {
-        this.cadastroFuncionarios = cadastroFuncionarios;
+    public void setCadastroFuncionarios(Funcionarios funcionarios) {
+        this.funcionarios = funcionarios;
     }
 
-    public CadastroTurnos getCadastroTurnos() {
-        return cadastroTurnos;
+    public Turnos getCadastroTurnos() {
+        return turnos;
     }
 
-    public void setCadastroTurnos(CadastroTurnos cadastroTurnos) {
-        this.cadastroTurnos = cadastroTurnos;
+    public void setCadastroTurnos(Turnos turnos) {
+        this.turnos = turnos;
     }
 
-    public CadastroJustificativa getCadastroJustificativa() {
-        return cadastroJustificativa;
+    public Justificativa getCadastroJustificativa() {
+        return justificativa;
     }
 
-    public void setCadastroJustificativa(CadastroJustificativa cadastroJustificativa) {
-        this.cadastroJustificativa = cadastroJustificativa;
+    public void setCadastroJustificativa(Justificativa justificativa) {
+        this.justificativa = justificativa;
     }
 
     public LocalDate getData() {

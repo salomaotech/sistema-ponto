@@ -9,9 +9,7 @@ import com.ana.coutinho.ponto.repository.FuncionariosRepository;
 import com.ana.coutinho.ponto.repository.JustificativaRepository;
 import com.ana.coutinho.ponto.repository.PontoRepository;
 import com.ana.coutinho.ponto.repository.TurnosRepository;
-
 import jakarta.servlet.http.HttpSession;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -166,11 +164,34 @@ public class ViewController {
     }
 
     @GetMapping("/login")
-    public ModelAndView login(HttpSession session){
+    public ModelAndView login(HttpSession session) {
 
-        ModelAndView mv = new ModelAndView("login");
+        ModelAndView mv;
+
+        if (session.getAttribute("usuarioLogado") == null) {
+
+            // Usuário NÃO logado
+            mv = new ModelAndView("login");
+            mv.addObject("mensagemLogin", session.getAttribute("mensagemLogin"));
+            mv.addObject("usuario", new Usuario());
+
+        } else {
+
+            // Usuário logado
+            mv = new ModelAndView("redirect:/tela/home");
+   
+        }
+      
+        return mv;
+
+    }
+
+    @GetMapping("/cadastro_usuario")
+    public ModelAndView cadastroUsuario(HttpSession session){
+
+        ModelAndView mv = new ModelAndView("cadastro_usuario");
+        mv.addObject("mensagemUsuarioExiste", session.getAttribute("mensagemUsuarioExiste"));
         mv.addObject("usuario", new Usuario());
-        mv.addObject("mensagemLogin", session.getAttribute("mensagemLogin"));
         return mv;
 
     }

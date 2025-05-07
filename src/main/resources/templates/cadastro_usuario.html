@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/home-style.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/cadastro-style.css}">
+    <title>Cadastro de Usuário</title>
+</head>
+<body>
+
+<header></header>
+
+<main>
+
+    <div class="container">
+
+        <form th:action="@{/usuario}" th:object="${usuario}" method="post">
+
+            <h1>Cadastro de Usuário</h1>
+
+            <div class="input-box">
+                <input th:field="*{username}" placeholder="Nome de usuário" type="text" required>
+                <i class="bx bxs-user"></i>
+            </div>
+
+            <div class="input-box">
+                <input th:field="*{email}" placeholder="E-mail" type="email" required>
+                <i class="bx bxs-envelope"></i>
+            </div>
+
+            <div class="input-box">
+                <input th:field="*{password}" placeholder="Senha" type="password" required>
+                <i class="bx bxs-lock-alt"></i>
+            </div>
+
+            <div class="input-box" th:if="${mensagemUsuarioExiste != null}">
+                <h2 th:text="${mensagemUsuarioExiste}"></h2>
+            </div>
+
+            <button type="submit" class="login">Cadastrar</button>
+
+            <div class="register-link">
+                <p>Já tem uma conta? <a th:href="@{/tela/login}">Entrar</a></p>
+            </div>
+
+        </form>
+
+    </div>
+
+</main>
+
+</body>
+</html>

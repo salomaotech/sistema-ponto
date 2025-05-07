@@ -16,11 +16,12 @@ public class FuncionariosController {
     private FuncionariosRepository repository;
 
     @PostMapping()
-    public String save(@ModelAttribute Funcionarios funcionarios){
+    public String save(@ModelAttribute Funcionarios funcionarios) {
 
         repository.save(funcionarios);
         return "redirect:/tela/cadastro_funcionario/" + funcionarios.getId_funcionario();
 
     }
 
+ 
 }

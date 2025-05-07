@@ -15,8 +15,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.util.List;
 import java.util.Optional;
 
 @Controller
@@ -65,6 +67,36 @@ public class ViewController {
         } else {
 
             mv.addObject("funcionario", cadastro.get());
+
+        }
+
+        return mv;
+
+    }
+
+    @GetMapping("/pesquisa_funcionario")
+    public ModelAndView pesquisar(@RequestParam(value = "cpf", required = false) String cpf) {
+
+        ModelAndView mv = new ModelAndView("pesquisa_funcionario");
+
+        if (cpf != null && !cpf.isEmpty()) {
+
+            // Usando o método com LIKE
+            List<Funcionarios> funcionarios = funcionariosRepository.findByCpfContaining(cpf);
+
+            if (!funcionarios.isEmpty()) {
+
+                mv.addObject("resultados", funcionarios);
+
+            } else {
+
+                mv.addObject("resultados", List.of()); // Se não encontrar, retorna lista vazia
+
+            }
+
+        } else {
+
+            mv.addObject("resultados", funcionariosRepository.findAll());
 
         }
 
@@ -179,15 +211,15 @@ public class ViewController {
 
             // Usuário logado
             mv = new ModelAndView("redirect:/tela/home");
-   
+
         }
-      
+
         return mv;
 
     }
 
     @GetMapping("/cadastro_usuario")
-    public ModelAndView cadastroUsuario(HttpSession session){
+    public ModelAndView cadastroUsuario(HttpSession session) {
 
         ModelAndView mv = new ModelAndView("cadastro_usuario");
         mv.addObject("mensagemUsuarioExiste", session.getAttribute("mensagemUsuarioExiste"));
@@ -195,6 +227,5 @@ public class ViewController {
         return mv;
 
     }
-
 
 }

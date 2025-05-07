@@ -4,10 +4,14 @@ import com.ana.coutinho.ponto.model.Funcionarios;
 import com.ana.coutinho.ponto.model.Justificativa;
 import com.ana.coutinho.ponto.model.Ponto;
 import com.ana.coutinho.ponto.model.Turnos;
+import com.ana.coutinho.ponto.model.Usuario;
 import com.ana.coutinho.ponto.repository.FuncionariosRepository;
 import com.ana.coutinho.ponto.repository.JustificativaRepository;
 import com.ana.coutinho.ponto.repository.PontoRepository;
 import com.ana.coutinho.ponto.repository.TurnosRepository;
+
+import jakarta.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -144,6 +148,7 @@ public class ViewController {
 
     @GetMapping("/cadastro_ponto/{id}")
     public ModelAndView abreCadastroPonto(@PathVariable("id") long id) {
+
         Optional<Ponto> cadastro = pontoRepository.findById(id);
         ModelAndView mv = new ModelAndView("cadastro_ponto");
 
@@ -158,6 +163,16 @@ public class ViewController {
         mv.addObject("listaJustificativas", justificativaRepository.findAll());
 
         return mv;
+    }
+
+    @GetMapping("/login")
+    public ModelAndView login(HttpSession session){
+
+        ModelAndView mv = new ModelAndView("login");
+        mv.addObject("usuario", new Usuario());
+        mv.addObject("mensagemLogin", session.getAttribute("mensagemLogin"));
+        return mv;
+
     }
 
 

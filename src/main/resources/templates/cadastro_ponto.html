@@ -1,74 +1,69 @@
 <!DOCTYPE html>
 <html lang="pt-BR" xmlns:th="http://www.w3.org/1999/xhtml">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cadastro de Ponto</title>
+    <title>Controle de Ponto</title>
 
     <link rel="stylesheet" type="text/css" th:href="@{/css/home-style.css}">
     <link rel="stylesheet" type="text/css" th:href="@{/css/cadastro-style.css}">
 </head>
+
 <body>
 
-<header></header>
+    <header></header>
 
-<main>
-    <div class="container">
+    <main>
+        <div class="container">
 
-        <button class="back-button">←</button>
-        <h1>Cadastro De Ponto</h1>
+            <button class="back-button">←</button>
+            <h1>Controle de Ponto</h1>
 
-        <form th:action="@{/ponto}" method="post" th:object="${ponto}">
+            <form th:action="@{/ponto/registrar}" method="post" th:object="${registroPonto}">
 
-            <input type="hidden" th:field="*{id_registro}"/>
+                <table class="table-ponto">
+                    <thead>
+                        <tr>
+                            <th>Tipo de Ponto</th>
+                            <th>Status</th>
+                            <th>Ação</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Entrada da Manhã</td>
+                            <td>Registrado</td>
+                            <td><button type="button" class="submit-button" disabled>✅ Desabilitado</button></td>
+                        </tr>
+                        <tr>
+                            <td>Saída para Almoço</td>
+                            <td>Aguardando</td>
+                            <td><button type="submit" class="submit-button">🔘 Registrar</button></td>
+                        </tr>
+                        <tr>
+                            <td>Retorno do Almoço</td>
+                            <td>Aguardando</td>
+                            <td><button type="button" class="submit-button" disabled>🔒 Bloqueado (opcional)</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Saída do Dia</td>
+                            <td>Aguardando</td>
+                            <td><button type="button" class="submit-button" disabled>🔒 Bloqueado (opcional)</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
 
-            <label for="funcionarios">Funcionário:</label>
-            <select id="funcionarios" th:field="*{cadastroFuncionarios}" required>
-                <option value="">Selecione</option>
-                <th:block th:each="f : ${listaFuncionarios}">
-                    <option th:value="${f.id_funcionario}" th:text="${f.nome}"></option>
-                </th:block>
-            </select>
+            </form>
 
-            <label for="turnos">Turno:</label>
-            <select id="turnos" th:field="*{cadastroTurnos}" required>
-                <option value="">Selecione</option>
-                <th:block th:each="t : ${listaTurnos}">
-                    <option th:value="${t.id_turno}" th:text="${t.turno}"></option>
-                </th:block>
-            </select>
+        </div>
+    </main>
 
-            <label for="justificativa">Justificativa:</label>
-            <select id="justificativa" th:field="*{cadastroJustificativa}">
-                <option value="">Nenhuma</option>
-                <th:block th:each="j : ${listaJustificativas}">
-                    <option th:value="${j.id_justificativa}" th:text="${j.descricao}"></option>
-                </th:block>
-            </select>
-
-            <label for="data">Data:</label>
-            <input type="date" id="data"
-                   name="data"
-                   th:value="${ponto.data != null ? #temporals.format(ponto.data, 'yyyy-MM-dd') : ''}"
-                   required/>
-
-            <label for="entrada">Horário de Entrada:</label>
-            <input type="time" id="entrada" th:field="*{horarioEntrada}" required/>
-
-            <label for="saida">Horário de Saída:</label>
-            <input type="time" id="saida" th:field="*{horarioSaida}" required/>
-
-            <label for="status">Status:</label>
-            <input type="text" id="status" th:field="*{status}" required/>
-
-            <button type="submit" class="submit-button">Salvar Ponto</button>
-
-        </form>
-
-    </div>
-</main>
-
-<script th:src="@{/js/menu.js}"></script>
+    <script th:src="@{/js/header.js}"></script>
+    <script th:src="@{/js/menu_lateral.js}"></script>
 
 </body>
+
 </html>

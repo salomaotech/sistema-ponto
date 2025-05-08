@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="pt-BR" xmlns:th="http://www.w3.org/1999/xhtml">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,43 +9,45 @@
     <link rel="stylesheet" type="text/css" th:href="@{/css/home-style.css}">
     <link rel="stylesheet" type="text/css" th:href="@{/css/cadastro-style.css}">
 </head>
+
 <body>
 
-<header></header>
+    <header></header>
 
-<main>
-    <div class="container">
+    <main>
+        <div class="container">
 
-        <button class="back-button">←</button>
-        <h1>Cadastro De Justificativa</h1>
+            <button class="back-button">←</button>
+            <h1>Cadastro De Justificativa</h1>
 
-        <form th:action="@{/justificativa}" method="post" th:object="${justificativa}">
+            <form th:action="@{/justificativa}" method="post" th:object="${justificativa}">
 
-            <input type="hidden" th:field="*{id_justificativa}"/>
+                <input type="hidden" th:field="*{id_justificativa}" />
 
-            <label for="funcionarios">Funcionário:</label>
-            <select name="funcionarios" id="funcionarios" required>
-                <option value="">Selecione</option>
-                <th:block th:each="f : ${listaFuncionarios}">
-                    <option th:value="${f.id_funcionario}"
-                            th:text="${f.nome}"
+                <label for="funcionarios">Funcionário:</label>
+                <select name="funcionarios" id="funcionarios" required>
+                    <option value="">Selecione</option>
+                    <th:block th:each="f : ${listaFuncionarios}">
+                        <option th:value="${f.id_funcionario}" th:text="${f.nome}"
                             th:selected="${justificativa.funcionarios != null and f.id_funcionario == justificativa.funcionarios.id_funcionario}">
-                    </option>
-                </th:block>
-            </select>
+                        </option>
+                    </th:block>
+                </select>
 
-            <br>
-            <label for="descricao">Descrição:</label>
-            <textarea th:field="*{descricao}" id="descricao" required></textarea>
+                <br>
+                <label for="descricao">Descrição:</label>
+                <textarea th:field="*{descricao}" id="descricao" required></textarea>
 
-            <button type="submit" class="submit-button">Salvar Justificativa</button>
+                <button type="submit" class="submit-button">Salvar Justificativa</button>
 
-        </form>
+            </form>
 
-    </div>
-</main>
+        </div>
+    </main>
 
-<script th:src="@{/js/menu.js}"></script>
+    <script th:src="@{/js/header.js}"></script>
+    <script th:src="@{/js/menu_lateral.js}"></script>
 
 </body>
+
 </html>

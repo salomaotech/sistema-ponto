@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="pt-BR" xmlns:th="http://www.w3.org/1999/xhtml">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,37 +9,40 @@
     <link rel="stylesheet" type="text/css" th:href="@{/css/home-style.css}">
     <link rel="stylesheet" type="text/css" th:href="@{/css/cadastro-style.css}">
 </head>
+
 <body>
 
-<header></header>
+    <header></header>
 
-<main>
-    <div class="container">
+    <main>
+        <div class="container">
 
-        <button class="back-button">←</button>
-        <h1>Cadastro De Turno</h1>
+            <button class="back-button">←</button>
+            <h1>Cadastro De Turno</h1>
 
-        <form th:action="@{/turno}" method="post" th:object="${turno}">
+            <form th:action="@{/turno}" method="post" th:object="${turno}">
 
-            <input type="hidden" th:field="*{id_turno}"/>
+                <input type="hidden" th:field="*{id_turno}" />
 
-            <label for="turno">Nome do turno:</label>
-            <input type="text" id="turno" th:field="*{turno}" required>
+                <label for="turno">Nome do turno:</label>
+                <input type="text" id="turno" th:field="*{turno}" required>
 
-            <label for="entradaPadrao">Horário de entrada padrão:</label>
-            <input type="time" id="entradaPadrao" th:field="*{entradaPadrao}">
+                <label for="entradaPadrao">Horário de entrada padrão:</label>
+                <input type="time" id="entradaPadrao" th:field="*{entradaPadrao}">
 
-            <label for="saidaPadrao">Horário de saída padrão:</label>
-            <input type="time" id="saidaPadrao" th:field="*{saidaPadrao}">
+                <label for="saidaPadrao">Horário de saída padrão:</label>
+                <input type="time" id="saidaPadrao" th:field="*{saidaPadrao}">
 
-            <button type="submit" class="submit-button">Concluir Cadastro</button>
+                <button type="submit" class="submit-button">Concluir Cadastro</button>
 
-        </form>
+            </form>
 
-    </div>
-</main>
+        </div>
+    </main>
 
-<script th:src="@{/js/menu.js}"></script>
+    <script th:src="@{/js/header.js}"></script>
+    <script th:src="@{/js/menu_lateral.js}"></script>
 
 </body>
+
 </html>

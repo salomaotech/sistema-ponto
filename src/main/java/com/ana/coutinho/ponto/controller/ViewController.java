@@ -133,6 +133,15 @@ public class ViewController {
 
     }
 
+    @GetMapping("/pesquisa_turno")
+    public ModelAndView pesquisarTurno() {
+
+        ModelAndView mv = new ModelAndView("pesquisa_turno");
+        mv.addObject("turnos", turnosRepository.findAll());
+        return mv;
+
+    }
+
     @GetMapping("/cadastro_justificativa")
     public ModelAndView cadastroJustificativa() {
 

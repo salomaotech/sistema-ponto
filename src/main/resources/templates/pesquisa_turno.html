@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/home-style.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/cadastro-style.css}">
+    <title>Listagem de Turnos</title>
+</head>
+
+<body>
+
+    <header></header>
+
+    <main>
+
+        <div class="menu-lateral" id="menu-lateral"></div>
+
+        <div class="container">
+
+            <div class="tabela-resultados" th:if="${turnos != null}">
+                <h2>Lista de Turnos</h2>
+
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Turno</th>
+                            <th>Entrada</th>
+                            <th>Saída</th>
+                            <th>Editar</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="turno : ${turnos}">
+                            <td th:text="${turno.turno}"></td>
+                            <td th:text="${turno.entradaPadrao}"></td>
+                            <td th:text="${turno.saidaPadrao}"></td>
+                            <td>
+                                <a th:href="@{/tela/cadastro_turno/{id}(id=${turno.id_turno})}" title="Editar">
+                                    ✏️
+                                </a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+
+    </main>
+
+    <script th:src="@{/js/header.js}"></script>
+    <script th:src="@{/js/menu_lateral.js}"></script>
+
+</body>
+
+</html>

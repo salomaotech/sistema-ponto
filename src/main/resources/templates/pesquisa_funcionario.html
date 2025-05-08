@@ -30,12 +30,13 @@
 
             <div class="tabela-resultados" th:if="${resultados != null}">
                 <h2>Resultados</h2>
+
                 <table>
                     <thead>
                         <tr>
                             <th>Nome</th>
                             <th>CPF</th>
-                            <th>Visualizar</th>
+                            <th>Editar</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -43,10 +44,15 @@
                             <td th:text="${funcionario.nome}"></td>
                             <td th:text="${funcionario.cpf}"></td>
                             <td>
-                                <a th:href="@{/tela/cadastro_funcionario/{id}(id=${funcionario.id_funcionario})}" title="Visualizar"> Visualizar 👁️</a>
+                                <a th:href="@{/tela/cadastro_funcionario/{id}(id=${funcionario.id_funcionario})}"
+                                    title="Editar">
+                                    ✏️
+                                </a>
+                            </td>
                         </tr>
                     </tbody>
                 </table>
+
             </div>
 
         </div>

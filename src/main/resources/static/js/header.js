@@ -5,7 +5,7 @@ function criarHeader() {
 
     nav.innerHTML = `
         <div class="logo">
-            <h1>logo</h1>
+            <a href="/tela/home"><img src="/img/logotipo.png" class="logo-topo"></a>
         </div>
     `;
 

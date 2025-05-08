@@ -5,32 +5,27 @@ function criarMenu() {
     aside.innerHTML = `
         <h2>Menu</h2>
         <ul>
-            <li><a href="/tela/cadastro_funcionario">👥 Cadastro de Funcionários</a></li>
+            <li>
+                <a href="/tela/cadastro_funcionario">👥 Cadastro de Funcionários</a>
+                <ul>
+                    <li><a href="/tela/pesquisa_funcionario">🔎 Pesquisa de Funcionário</a></li>
+                </ul>
+            </li>
             <li><a href="/tela/cadastro_turno">🕒 Cadastro de Turnos</a></li>
             <li><a href="/tela/cadastro_justificativa">📝 Cadastro de Justificativas</a></li>
             <li><a href="/tela/cadastro_ponto">📌 Cadastro de Pontos</a></li>
             <li><a href="#">🔍 Consultas</a></li>
             <li><a href="#">📄 Gerar Relatório</a></li>
+            <li><a href="/logout">🚪 Logout</a></li>
         </ul>
     `;
 
-    const main = document.querySelector("main");
+    const menuLateralDiv = document.getElementById("menu-lateral");
 
-    if (main) {
-        const container = main.querySelector(".container");
-        if (container) {
-            const wrapper = document.createElement("div");
-            wrapper.style.display = "flex";
-            wrapper.style.gap = "2rem";
-
-            wrapper.appendChild(aside);
-            wrapper.appendChild(container.cloneNode(true));
-            container.replaceWith(wrapper);
-        } else {
-            console.error("Elemento .container não encontrado.");
-        }
+    if (menuLateralDiv) {
+        menuLateralDiv.appendChild(aside);
     } else {
-        console.error("Elemento <main> não encontrado.");
+        console.error("Elemento <div id='menu-lateral'> não encontrado.");
     }
 }
 

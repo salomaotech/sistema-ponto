@@ -175,6 +175,15 @@ public class ViewController {
 
     }
 
+    @GetMapping("/pesquisa_justificativa")
+    public ModelAndView pesquisarJustificativa() {
+
+        ModelAndView mv = new ModelAndView("pesquisa_justificativa");
+        mv.addObject("justificativas", justificativaRepository.findAll());
+        return mv;
+
+    }
+
     @GetMapping("/cadastro_ponto")
     public ModelAndView cadastroPonto() {
         ModelAndView mv = new ModelAndView("cadastro_ponto");

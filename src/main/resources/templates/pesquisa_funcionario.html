@@ -20,13 +20,17 @@
         <div class="container">
 
             <form th:action="@{/tela/pesquisa_funcionario}" method="get">
+
                 <h1>Pesquisar Funcionário</h1>
-                <div class="input-box">
-                    <input type="text" name="cpf" placeholder="Digite o CPF" required>
-                    <i class="bx bxs-id-card"></i>
-                </div>
-                <button type="submit" class="login">Pesquisar</button>
+
+                <label for="cpf">CPF:</label>
+                <input type="text" name="cpf" placeholder="Digite o CPF" required>
+
+                <button type="submit" class="submit-button">Pesquisar</button>
+
             </form>
+
+            <br>
 
             <div class="tabela-resultados" th:if="${resultados != null}">
                 <h2>Resultados</h2>

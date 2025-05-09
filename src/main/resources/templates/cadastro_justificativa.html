@@ -36,12 +36,11 @@
                         </option>
                     </th:block>
                 </select>
-
-                <br>
+                
                 <label for="dataFalta">Data da Falta:</label>
                 <input type="date" id="dataFalta" name="dataFalta"
                     th:value="${#temporals.format(justificativa.dataFalta, 'yyyy-MM-dd')}" />
-                <br>
+                
                 <label for="descricao">Descrição:</label>
                 <textarea th:field="*{descricao}" id="descricao"></textarea>
 

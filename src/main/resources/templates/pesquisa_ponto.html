@@ -35,17 +35,17 @@
                     </th:block>
                 </select>
 
-                <br>
                 <label for="data">Data:</label>
                 <input type="date" id="data" name="data" th:value="${#temporals.format(data, 'yyyy-MM-dd')}" />
-                <br>
 
                 <button type="submit" class="submit-button">Pesquisar</button>
 
             </form>
 
             <br>
+
             <h2>Resultados</h2>
+
             <table class="table-ponto">
                 <thead>
                     <tr>
@@ -54,6 +54,7 @@
                         <th>Pausa</th>
                         <th>Retorno</th>
                         <th>Saída</th>
+                        <th>Editar</th> <!-- Nova coluna -->
                     </tr>
                 </thead>
                 <tbody>
@@ -63,9 +64,12 @@
                         <td th:text="${p.horarioPausa}"></td>
                         <td th:text="${p.horarioRetorno}"></td>
                         <td th:text="${p.horarioSaida}"></td>
+                        <td>
+                            <a th:href="@{'/tela/cadastro_ponto/' + ${p.id_registro}}">✏️</a> <!-- Link para edição -->
+                        </td>
                     </tr>
                     <tr th:if="${#lists.isEmpty(pontos)}">
-                        <td colspan="5">Nenhum ponto encontrado.</td>
+                        <td colspan="6">Nenhum ponto encontrado.</td> <!-- Ajustado colspan -->
                     </tr>
                 </tbody>
             </table>

@@ -19,24 +19,22 @@
 
         <div class="container">
 
-            <form th:action="@{/}" method="post">
+            <h1>Lista de Justificativas</h1>
 
-                <div class="tabela-resultados" th:if="${justificativas != null}">
-                    <h2>Lista de Justificativas</h2>
+            <form th:action="@{/tela/pesquisa_justificativa}" method="get">
 
-                    <label for="funcionarios">Funcionário:</label>
-                    <select name="funcionarios" id="funcionarios">
-                        <option value="">Selecione</option>
-                        <th:block th:each="f : ${listaFuncionarios}">
-                            <option th:value="${f.id_funcionario}" th:text="${f.nome}">
-                            </option>
-                        </th:block>
-                    </select>
-                </div>
+                <label for="funcionarios">Funcionário:</label>
+                <select name="idFuncionario" id="funcionarios">
+                    <option value="">Selecione</option>
+                    <th:block th:each="f : ${listaFuncionarios}">
+                        <option th:value="${f.id_funcionario}" th:text="${f.nome}">
+                        </option>
+                    </th:block>
+                </select>
+
+                <button type="submit" class="submit-button">Pesquisar</button>
 
             </form>
-
-            <br>
 
             <table>
                 <thead>

@@ -12,6 +12,7 @@ import java.util.List;
 @Repository
 public interface PontoRepository extends JpaRepository<Ponto, Long> {
 
+        // Pesquisa pelo funcionário e entre datas
         @Query("SELECT p FROM Ponto p WHERE " +
                         "(:idFuncionario IS NULL OR p.funcionarios.id_funcionario = :idFuncionario) AND " +
                         "(:dataInicio IS NULL OR p.data >= :dataInicio) AND " +

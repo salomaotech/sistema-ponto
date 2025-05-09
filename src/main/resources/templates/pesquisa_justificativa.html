@@ -24,8 +24,8 @@
 
             <form th:action="@{/tela/pesquisa_justificativa}" method="get">
 
-                <label for="funcionarios">Funcionário:</label>
-                <select name="idFuncionario" id="funcionarios">
+                <label for="funcionarios">* Funcionário:</label>
+                <select name="idFuncionario" id="funcionarios" required>
                     <option value="">Selecione</option>
                     <th:block th:each="f : ${listaFuncionarios}">
                         <option th:value="${f.id_funcionario}" th:text="${f.nome}"

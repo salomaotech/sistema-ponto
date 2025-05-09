@@ -183,15 +183,19 @@ public class ViewController {
             @RequestParam(value = "dataFim", required = false) String dataFimStr) {
 
         ModelAndView mv = new ModelAndView("pesquisa_justificativa");
+        List<Justificativa> justificativas = new ArrayList<>();
+
         mv.addObject("listaFuncionarios", funcionariosRepository.findAll());
 
         LocalDate dataInicio = null;
         LocalDate dataFim = null;
 
         try {
+
             if (dataInicioStr != null && !dataInicioStr.isEmpty()) {
                 dataInicio = LocalDate.parse(dataInicioStr);
             }
+
             if (dataFimStr != null && !dataFimStr.isEmpty()) {
                 dataFim = LocalDate.parse(dataFimStr);
             }
@@ -202,10 +206,15 @@ public class ViewController {
             }
 
         } catch (Exception ignored) {
+
         }
 
-        List<Justificativa> justificativas = justificativaRepository.buscarPorFiltros(idFuncionario, dataInicio,
-                dataFim);
+        // Isto evita consultar todos os registros
+        if (idFuncionario != null) {
+
+            justificativas = justificativaRepository.buscarPorFiltros(idFuncionario, dataInicio, dataFim);
+
+        }
 
         mv.addObject("justificativas", justificativas);
         mv.addObject("idFuncionario", idFuncionario);
@@ -213,7 +222,7 @@ public class ViewController {
         mv.addObject("dataFim", dataFim);
 
         return mv;
-        
+
     }
 
     @GetMapping("/cadastro_ponto")
@@ -254,6 +263,8 @@ public class ViewController {
             @RequestParam(value = "dataFim", required = false) String dataFimStr) {
 
         ModelAndView mv = new ModelAndView("pesquisa_ponto");
+        List<Ponto> pontos = new ArrayList<>();
+
         mv.addObject("listaFuncionarios", funcionariosRepository.findAll());
 
         LocalDate dataInicio = null;
@@ -275,7 +286,14 @@ public class ViewController {
         } catch (Exception ignored) {
         }
 
-        mv.addObject("pontos", pontoRepository.buscarPorFiltros(idFuncionario, dataInicio, dataFim));
+        // Isto evita consultar todos os registros
+        if (idFuncionario != null) {
+
+            pontos = pontoRepository.buscarPorFiltros(idFuncionario, dataInicio, dataFim);
+
+        }
+
+        mv.addObject("pontos", pontos);
         mv.addObject("idFuncionario", idFuncionario);
         mv.addObject("dataInicio", dataInicio);
         mv.addObject("dataFim", dataFim);

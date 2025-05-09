@@ -27,7 +27,7 @@
 
                 <input type="hidden" th:field="*{id_registro}" />
 
-                <label for="funcionarios">Funcionário:</label>
+                <label for="funcionarios">* Funcionário:</label>
                 <select th:field="*{funcionarios}" id="funcionarios" required>
                     <option value="">Selecione</option>
                     <th:block th:each="f : ${listaFuncionarios}">
@@ -37,8 +37,9 @@
                     </th:block>
                 </select>
 
-                <label for="data">Data:</label>
-                <input type="date" id="data" name="data" th:value="${#temporals.format(ponto.data, 'yyyy-MM-dd')}" />
+                <label for="data">* Data:</label>
+                <input type="date" id="data" name="data" th:value="${#temporals.format(ponto.data, 'yyyy-MM-dd')}"
+                    required />
 
                 <table class="table-ponto">
                     <thead>

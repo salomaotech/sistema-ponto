@@ -20,6 +20,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -178,11 +179,26 @@ public class ViewController {
     }
 
     @GetMapping("/pesquisa_justificativa")
-    public ModelAndView pesquisarJustificativa() {
-
+    public ModelAndView pesquisarJustificativa(
+            @RequestParam(value = "idFuncionario", required = false) Long idFuncionario) {
         ModelAndView mv = new ModelAndView("pesquisa_justificativa");
+
+        // Busca os funcionários
         mv.addObject("listaFuncionarios", funcionariosRepository.findAll());
-        mv.addObject("justificativas", justificativaRepository.findAll());
+
+        if (idFuncionario != null) {
+
+            // Se o idFuncionario foi fornecido, busca as justificativas
+            mv.addObject("justificativas", justificativaRepository.findByFuncionarioId(idFuncionario));
+            mv.addObject("idFuncionario", idFuncionario);
+
+        } else {
+
+            // Se o idFuncionario não foi informado, carregue uma lista vazia
+            mv.addObject("justificativas", new ArrayList<>());
+
+        }
+
         return mv;
 
     }

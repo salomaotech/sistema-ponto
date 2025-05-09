@@ -20,7 +20,7 @@
 
         <div class="container">
 
-            <button class="back-button">←</button>
+            <button class="back-button" onclick="window.history.back()">←</button>
             <h1>Cadastro De Justificativa</h1>
 
             <form th:action="@{/justificativa}" method="post" th:object="${justificativa}">
@@ -36,11 +36,11 @@
                         </option>
                     </th:block>
                 </select>
-                
+
                 <label for="dataFalta">Data da Falta:</label>
                 <input type="date" id="dataFalta" name="dataFalta"
                     th:value="${#temporals.format(justificativa.dataFalta, 'yyyy-MM-dd')}" />
-                
+
                 <label for="descricao">Descrição:</label>
                 <textarea th:field="*{descricao}" id="descricao"></textarea>
 

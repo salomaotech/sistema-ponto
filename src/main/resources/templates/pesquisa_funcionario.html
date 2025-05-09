@@ -19,9 +19,10 @@
 
         <div class="container">
 
-            <form th:action="@{/tela/pesquisa_funcionario}" method="get">
+            <button class="back-button" onclick="window.history.back()">←</button>
+            <h1>Pesquisar Funcionário</h1>
 
-                <h1>Pesquisar Funcionário</h1>
+            <form th:action="@{/tela/pesquisa_funcionario}" method="get">
 
                 <label for="cpf">CPF:</label>
                 <input type="text" name="cpf" placeholder="Digite o CPF" required>

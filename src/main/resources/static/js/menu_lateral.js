@@ -42,6 +42,10 @@ function criarMenu() {
                     <li><a href="/tela/pesquisa_justificativa">🔎 Pesquisa de Justificativas</a></li>
                 </ul>
 
+                <ul>
+                    <li><a href="/tela/pesquisa_ponto">🔎 Pesquisa de Pontos</a></li>
+                </ul>
+
             </li>
          
             <li><a href="/tela/cadastro_turno">🕒 Cadastro de Turnos</a></li>

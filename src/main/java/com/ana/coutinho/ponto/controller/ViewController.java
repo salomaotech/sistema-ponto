@@ -18,6 +18,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
 import java.util.List;
 import java.util.Optional;
 
@@ -212,6 +214,61 @@ public class ViewController {
         }
 
         mv.addObject("listaFuncionarios", funcionariosRepository.findAll());
+        return mv;
+
+    }
+
+    @GetMapping("/pesquisa_ponto")
+    public ModelAndView pesquisarPonto(@RequestParam(value = "idFuncionario", required = false) Long idFuncionario,
+            @RequestParam(value = "data", required = false) String data) {
+
+        ModelAndView mv = new ModelAndView("pesquisa_ponto");
+        LocalDate dataFormatada = null;
+
+        // Carrega todos os funcionários
+        mv.addObject("listaFuncionarios", funcionariosRepository.findAll());
+
+        if (idFuncionario == null && (data == null || data.isEmpty())) {
+
+            // Se ambos idFuncionario e data não forem passados, carrega todos os pontos
+            mv.addObject("pontos", pontoRepository.findAll());
+
+        } else if (idFuncionario != null && (data == null || data.isEmpty())) {
+
+            // Se apenas o idFuncionario for passado
+            mv.addObject("pontos", pontoRepository.buscarPorFuncionarioEData(idFuncionario, null));
+
+        }
+
+        else if (data != null && !data.isEmpty() && (idFuncionario == null)) {
+
+            // Se apenas a data for passada
+            LocalDate localDate = LocalDate.parse(data);
+            mv.addObject("pontos", pontoRepository.buscarPorFuncionarioEData(null, localDate));
+
+        } else {
+
+            // Se ambos idFuncionario e data forem passados
+            LocalDate localDate = LocalDate.parse(data);
+            mv.addObject("pontos", pontoRepository.buscarPorFuncionarioEData(idFuncionario, localDate));
+
+        }
+
+        // Converter o parâmetro 'data' para LocalDate (caso necessário)
+        if (data != null && !data.isEmpty()) {
+
+            try {
+
+                dataFormatada = LocalDate.parse(data);
+
+            } catch (Exception e) {
+
+            }
+
+        }
+
+        mv.addObject("data", dataFormatada);
+        mv.addObject("idFuncionario", idFuncionario);
         return mv;
 
     }

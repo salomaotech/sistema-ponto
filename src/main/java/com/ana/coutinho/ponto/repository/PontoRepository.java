@@ -31,4 +31,10 @@ public interface PontoRepository extends JpaRepository<Ponto, Long> {
         List<Object[]> buscarFuncionariosComPontos(@Param("dataInicio") LocalDate dataInicio,
                         @Param("dataFim") LocalDate dataFim);
 
+        // Verifica se o usuário já bateu o ponto no dia informado (Evita duplicatas
+        // diárias)
+        @Query("SELECT p FROM Ponto p WHERE p.funcionarios.id_funcionario = :idFuncionario AND p.data = :dataHoje")
+        List<Ponto> verificarPontoHoje(@Param("idFuncionario") Long idFuncionario,
+                        @Param("dataHoje") LocalDate dataHoje);
+
 }

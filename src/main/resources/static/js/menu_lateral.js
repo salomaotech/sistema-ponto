@@ -27,11 +27,17 @@ function criarMenu() {
 
             </li>
    
+            <li><a href="/tela/cadastro_turno">🕒 Cadastro de Turnos</a></li>
+
             <li>
                 <a href="#">🔍 Consultas</a>
 
                 <ul>
                     <li><a href="/tela/pesquisa_funcionario">🔎 Pesquisa de Funcionários</a></li>
+                </ul>
+
+                <ul>
+                    <li><a href="/tela/pesquisa_ponto">🔎 Pesquisa de Pontos</a></li>
                 </ul>
 
                 <ul>
@@ -41,14 +47,9 @@ function criarMenu() {
                 <ul>
                     <li><a href="/tela/pesquisa_justificativa">🔎 Pesquisa de Justificativas</a></li>
                 </ul>
-
-                <ul>
-                    <li><a href="/tela/pesquisa_ponto">🔎 Pesquisa de Pontos</a></li>
-                </ul>
-
-            </li>
          
-            <li><a href="/tela/cadastro_turno">🕒 Cadastro de Turnos</a></li>
+            </li>
+                 
             <li><a href="/logout">🚪 Logout</a></li>
 
         </ul>

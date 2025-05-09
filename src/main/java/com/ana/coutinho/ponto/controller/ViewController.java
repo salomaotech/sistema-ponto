@@ -17,9 +17,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
-
 import java.time.LocalDate;
-import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -180,27 +178,42 @@ public class ViewController {
 
     @GetMapping("/pesquisa_justificativa")
     public ModelAndView pesquisarJustificativa(
-            @RequestParam(value = "idFuncionario", required = false) Long idFuncionario) {
-        ModelAndView mv = new ModelAndView("pesquisa_justificativa");
+            @RequestParam(value = "idFuncionario", required = false) Long idFuncionario,
+            @RequestParam(value = "dataInicio", required = false) String dataInicioStr,
+            @RequestParam(value = "dataFim", required = false) String dataFimStr) {
 
-        // Busca os funcionários
+        ModelAndView mv = new ModelAndView("pesquisa_justificativa");
         mv.addObject("listaFuncionarios", funcionariosRepository.findAll());
 
-        if (idFuncionario != null) {
+        LocalDate dataInicio = null;
+        LocalDate dataFim = null;
 
-            // Se o idFuncionario foi fornecido, busca as justificativas
-            mv.addObject("justificativas", justificativaRepository.findByFuncionarioId(idFuncionario));
-            mv.addObject("idFuncionario", idFuncionario);
+        try {
+            if (dataInicioStr != null && !dataInicioStr.isEmpty()) {
+                dataInicio = LocalDate.parse(dataInicioStr);
+            }
+            if (dataFimStr != null && !dataFimStr.isEmpty()) {
+                dataFim = LocalDate.parse(dataFimStr);
+            }
 
-        } else {
+            // Se data final for nula, usa a data inicial
+            if (dataInicio != null && dataFim == null) {
+                dataFim = dataInicio;
+            }
 
-            // Se o idFuncionario não foi informado, carregue uma lista vazia
-            mv.addObject("justificativas", new ArrayList<>());
-
+        } catch (Exception ignored) {
         }
 
-        return mv;
+        List<Justificativa> justificativas = justificativaRepository.buscarPorFiltros(idFuncionario, dataInicio,
+                dataFim);
 
+        mv.addObject("justificativas", justificativas);
+        mv.addObject("idFuncionario", idFuncionario);
+        mv.addObject("dataInicio", dataInicio);
+        mv.addObject("dataFim", dataFim);
+
+        return mv;
+        
     }
 
     @GetMapping("/cadastro_ponto")
@@ -235,56 +248,38 @@ public class ViewController {
     }
 
     @GetMapping("/pesquisa_ponto")
-    public ModelAndView pesquisarPonto(@RequestParam(value = "idFuncionario", required = false) Long idFuncionario,
-            @RequestParam(value = "data", required = false) String data) {
+    public ModelAndView pesquisarPonto(
+            @RequestParam(value = "idFuncionario", required = false) Long idFuncionario,
+            @RequestParam(value = "dataInicio", required = false) String dataInicioStr,
+            @RequestParam(value = "dataFim", required = false) String dataFimStr) {
 
         ModelAndView mv = new ModelAndView("pesquisa_ponto");
-        LocalDate dataFormatada = null;
-
-        // Carrega todos os funcionários
         mv.addObject("listaFuncionarios", funcionariosRepository.findAll());
 
-        if (idFuncionario == null && (data == null || data.isEmpty())) {
+        LocalDate dataInicio = null;
+        LocalDate dataFim = null;
 
-            // Se ambos idFuncionario e data não forem passados, carrega todos os pontos
-            mv.addObject("pontos", pontoRepository.findAll());
-
-        } else if (idFuncionario != null && (data == null || data.isEmpty())) {
-
-            // Se apenas o idFuncionario for passado
-            mv.addObject("pontos", pontoRepository.buscarPorFuncionarioEData(idFuncionario, null));
-
-        }
-
-        else if (data != null && !data.isEmpty() && (idFuncionario == null)) {
-
-            // Se apenas a data for passada
-            LocalDate localDate = LocalDate.parse(data);
-            mv.addObject("pontos", pontoRepository.buscarPorFuncionarioEData(null, localDate));
-
-        } else {
-
-            // Se ambos idFuncionario e data forem passados
-            LocalDate localDate = LocalDate.parse(data);
-            mv.addObject("pontos", pontoRepository.buscarPorFuncionarioEData(idFuncionario, localDate));
-
-        }
-
-        // Converter o parâmetro 'data' para LocalDate (caso necessário)
-        if (data != null && !data.isEmpty()) {
-
-            try {
-
-                dataFormatada = LocalDate.parse(data);
-
-            } catch (Exception e) {
-
+        try {
+            if (dataInicioStr != null && !dataInicioStr.isEmpty()) {
+                dataInicio = LocalDate.parse(dataInicioStr);
+            }
+            if (dataFimStr != null && !dataFimStr.isEmpty()) {
+                dataFim = LocalDate.parse(dataFimStr);
             }
 
+            // Se data final for nula, use a mesma da data inicial
+            if (dataInicio != null && dataFim == null) {
+                dataFim = dataInicio;
+            }
+
+        } catch (Exception ignored) {
         }
 
-        mv.addObject("data", dataFormatada);
+        mv.addObject("pontos", pontoRepository.buscarPorFiltros(idFuncionario, dataInicio, dataFim));
         mv.addObject("idFuncionario", idFuncionario);
+        mv.addObject("dataInicio", dataInicio);
+        mv.addObject("dataFim", dataFim);
+
         return mv;
 
     }

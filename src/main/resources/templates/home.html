@@ -24,15 +24,14 @@
             <div class="main-panel">
 
                 <h1>Painel de Ponto</h1>
-                <h2>Registros de Hoje</h2>
-               
+
                 <!-- Formulário de pesquisa por data -->
                 <form th:action="@{/ponto/pesquisar}" method="get" class="form-pesquisa">
                     <label for="dataPesquisa">Data:</label>
                     <input type="date" name="data" id="dataPesquisa" required>
                     <button type="submit" class="submit-button">Pesquisar</button>
                 </form>
-              
+
                 <table>
                     <thead>
                         <tr>

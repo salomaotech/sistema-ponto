@@ -34,6 +34,13 @@
                     </th:block>
                 </select>
 
+                <label for="dataInicio">Data inicial:</label>
+                <input type="date" id="dataInicio" name="dataInicio"
+                    th:value="${#temporals.format(dataInicio, 'yyyy-MM-dd')}" />
+
+                <label for="dataFim">Data final:</label>
+                <input type="date" id="dataFim" name="dataFim" th:value="${#temporals.format(dataFim, 'yyyy-MM-dd')}" />
+
                 <button type="submit" class="submit-button">Pesquisar</button>
 
             </form>

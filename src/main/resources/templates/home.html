@@ -22,15 +22,21 @@
 
             <!-- Painel principal (o menu será adicionado via JS antes disso) -->
             <div class="main-panel">
+
                 <h1>Painel de Ponto</h1>
-
-                <div class="summary-box">
-                    <p><strong>Registrados hoje:</strong> <span th:text="${totalRegistrados}">0</span></p>
-                    <p><strong>Atrasos:</strong> <span th:text="${totalAtrasos}">0</span></p>
-                    <p><strong>Faltas:</strong> <span th:text="${totalFaltas}">0</span></p>
-                </div>
-
                 <h2>Registros de Hoje</h2>
+
+                <br>
+
+                <!-- Formulário de pesquisa por data -->
+                <form th:action="@{/ponto/pesquisar}" method="get" class="form-pesquisa">
+                    <label for="dataPesquisa">Data:</label>
+                    <input type="date" name="data" id="dataPesquisa" required>
+                    <button type="submit" class="submit-button">Pesquisar</button>
+                </form>
+
+                <br>
+
                 <table>
                     <thead>
                         <tr>
@@ -39,7 +45,6 @@
                             <th>Saída Almoço</th>
                             <th>Retorno Almoço</th>
                             <th>Saída</th>
-                            <th>Status</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -49,10 +54,10 @@
                             <td th:text="${ponto.saidaAlmoco}">12:00</td>
                             <td th:text="${ponto.retornoAlmoco}">13:00</td>
                             <td th:text="${ponto.saida}">17:00</td>
-                            <td th:text="${ponto.status}">Completo</td>
                         </tr>
                     </tbody>
                 </table>
+
             </div>
 
         </div>

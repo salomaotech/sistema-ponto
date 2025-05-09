@@ -191,8 +191,6 @@ public class ViewController {
         ModelAndView mv = new ModelAndView("cadastro_ponto");
         mv.addObject("ponto", new Ponto());
         mv.addObject("listaFuncionarios", funcionariosRepository.findAll());
-        mv.addObject("listaTurnos", turnosRepository.findAll());
-        mv.addObject("listaJustificativas", justificativaRepository.findAll());
         return mv;
 
     }
@@ -204,16 +202,18 @@ public class ViewController {
         ModelAndView mv = new ModelAndView("cadastro_ponto");
 
         if (cadastro.isPresent()) {
+
             mv.addObject("ponto", cadastro.get());
+
         } else {
+
             mv.addObject("ponto", new Ponto());
+
         }
 
         mv.addObject("listaFuncionarios", funcionariosRepository.findAll());
-        mv.addObject("listaTurnos", turnosRepository.findAll());
-        mv.addObject("listaJustificativas", justificativaRepository.findAll());
-
         return mv;
+
     }
 
     @GetMapping("/login")

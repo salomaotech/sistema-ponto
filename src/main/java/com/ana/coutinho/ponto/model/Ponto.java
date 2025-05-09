@@ -26,8 +26,9 @@ public class Ponto {
 
     private LocalDate data;
     private LocalTime horarioEntrada;
+    private LocalTime horarioPausa;
+    private LocalTime horarioRetorno;
     private LocalTime horarioSaida;
-    private String status;
 
     public Long getId_registro() {
         return id_registro;
@@ -77,20 +78,28 @@ public class Ponto {
         this.horarioEntrada = horarioEntrada;
     }
 
+    public LocalTime getHorarioPausa() {
+        return horarioPausa;
+    }
+
+    public void setHorarioPausa(LocalTime horarioPausa) {
+        this.horarioPausa = horarioPausa;
+    }
+
+    public LocalTime getHorarioRetorno() {
+        return horarioRetorno;
+    }
+
+    public void setHorarioRetorno(LocalTime horarioRetorno) {
+        this.horarioRetorno = horarioRetorno;
+    }
+
     public LocalTime getHorarioSaida() {
         return horarioSaida;
     }
 
     public void setHorarioSaida(LocalTime horarioSaida) {
         this.horarioSaida = horarioSaida;
-    }
-
-    public String getStatus() {
-        return status;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
     }
 
 }

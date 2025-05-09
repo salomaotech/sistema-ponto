@@ -23,12 +23,12 @@
             <button class="back-button">←</button>
             <h1>Controle de Ponto</h1>
 
-            <form th:action="@{/ponto/registrar}" method="post" th:object="${ponto}">
+            <form th:action="@{/ponto}" method="post" th:object="${ponto}">
 
                 <input type="hidden" th:field="*{id_registro}" />
 
                 <label for="funcionarios">Funcionário:</label>
-                <select name="funcionarios" id="funcionarios" required>
+                <select th:field="*{funcionarios}" id="funcionarios" required>
                     <option value="">Selecione</option>
                     <th:block th:each="f : ${listaFuncionarios}">
                         <option th:value="${f.id_funcionario}" th:text="${f.nome}"
@@ -37,8 +37,8 @@
                     </th:block>
                 </select>
 
-                <label for="dataRegistro">Data:</label>
-                <input type="date" name="dataRegistro" id="dataRegistro">
+                <label for="data">Data:</label>
+                <input type="date" id="data" name="data" th:value="${#temporals.format(ponto.data, 'yyyy-MM-dd')}" />
 
                 <table class="table-ponto">
                     <thead>
@@ -51,22 +51,22 @@
                     <tbody>
                         <tr>
                             <td>Entrada da Manhã</td>
-                            <td><input type="time" name="horaEntradaManha"></td>
+                            <td><input type="time" th:field="*{horarioEntrada}"></td>
                             <td><button type="submit" class="submit-button">Salvar</button></td>
                         </tr>
                         <tr>
                             <td>Saída para Almoço</td>
-                            <td><input type="time" name="horaSaidaAlmoco"></td>
+                            <td><input type="time" th:field="*{horarioPausa}"></td>
                             <td><button type="submit" class="submit-button">Salvar</button></td>
                         </tr>
                         <tr>
                             <td>Retorno do Almoço</td>
-                            <td><input type="time" name="horaRetornoAlmoco"></td>
+                            <td><input type="time" th:field="*{horarioRetorno}"></td>
                             <td><button type="submit" class="submit-button">Salvar</button></td>
                         </tr>
                         <tr>
                             <td>Saída do Dia</td>
-                            <td><input type="time" name="horaSaidaDia"></td>
+                            <td><input type="time" th:field="*{horarioSaida}"></td>
                             <td><button type="submit" class="submit-button">Salvar</button></td>
                         </tr>
                     </tbody>

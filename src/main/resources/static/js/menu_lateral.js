@@ -22,7 +22,7 @@ function criarMenu() {
                 </ul>
         
                 <ul>
-                   <li><a href="#">📄 Gerar Relatório de Pontos</a></li>
+                   <li><a href="/tela/pesquisa_relatorio">📄 Gerar Relatório de Pontos</a></li>
                 </ul>
 
             </li>

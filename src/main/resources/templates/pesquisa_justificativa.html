@@ -19,29 +19,46 @@
 
         <div class="container">
 
-            <div class="tabela-resultados" th:if="${justificativas != null}">
-                <h2>Lista de Justificativas</h2>
+            <form th:action="@{/}" method="post">
 
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Descrição</th>
-                            <th>Editar</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr th:each="justificativa : ${justificativas}">
-                            <td th:text="${justificativa.descricao}"></td>
-                            <td>
-                                <a th:href="@{/tela/cadastro_justificativa/{id}(id=${justificativa.id_justificativa})}"
-                                    title="Editar">
-                                    ✏️
-                                </a>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
+                <div class="tabela-resultados" th:if="${justificativas != null}">
+                    <h2>Lista de Justificativas</h2>
+
+                    <label for="funcionarios">Funcionário:</label>
+                    <select name="funcionarios" id="funcionarios">
+                        <option value="">Selecione</option>
+                        <th:block th:each="f : ${listaFuncionarios}">
+                            <option th:value="${f.id_funcionario}" th:text="${f.nome}">
+                            </option>
+                        </th:block>
+                    </select>
+                </div>
+
+            </form>
+
+            <br>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>Data</th>
+                        <th>Descrição</th>
+                        <th>Editar</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="justificativa : ${justificativas}">
+                        <td th:text="${#temporals.format(justificativa.dataFalta, 'dd/MM/yyyy')}"></td>
+                        <td th:text="${justificativa.descricao}"></td>
+                        <td>
+                            <a th:href="@{/tela/cadastro_justificativa/{id}(id=${justificativa.id_justificativa})}"
+                                title="Editar">
+                                ✏️
+                            </a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
 
         </div>
 

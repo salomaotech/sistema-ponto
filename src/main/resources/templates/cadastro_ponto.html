@@ -23,38 +23,53 @@
             <button class="back-button">←</button>
             <h1>Controle de Ponto</h1>
 
-            <form th:action="@{/ponto/registrar}" method="post" th:object="${registroPonto}">
+            <form th:action="@{/ponto/registrar}" method="post" th:object="${ponto}">
+
+                <input type="hidden" th:field="*{id_registro}" />
+
+                <label for="funcionarios">Funcionário:</label>
+                <select name="funcionarios" id="funcionarios" required>
+                    <option value="">Selecione</option>
+                    <th:block th:each="f : ${listaFuncionarios}">
+                        <option th:value="${f.id_funcionario}" th:text="${f.nome}"
+                            th:selected="${ponto.funcionarios != null and f.id_funcionario == ponto.funcionarios.id_funcionario}">
+                        </option>
+                    </th:block>
+                </select>
 
                 <table class="table-ponto">
                     <thead>
                         <tr>
                             <th>Tipo de Ponto</th>
-                            <th>Status</th>
-                            <th>Ação</th>
+                            <th>Data</th>
+                            <th>Hora</th>
+                            <th>Salvar</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
                             <td>Entrada da Manhã</td>
-                            <td>Registrado</td>
-                            <td><button type="button" class="submit-button" disabled>✅ Desabilitado</button></td>
+                            <td><input type="date" name="dataEntradaManha"></td>
+                            <td><input type="time" name="horaEntradaManha"></td>
+                            <td><button type="submit" class="submit-button">Salvar</button></td>
                         </tr>
                         <tr>
                             <td>Saída para Almoço</td>
-                            <td>Aguardando</td>
-                            <td><button type="submit" class="submit-button">🔘 Registrar</button></td>
+                            <td><input type="date" name="dataSaidaAlmoco"></td>
+                            <td><input type="time" name="horaSaidaAlmoco"></td>
+                            <td><button type="submit" class="submit-button">Salvar</button></td>
                         </tr>
                         <tr>
                             <td>Retorno do Almoço</td>
-                            <td>Aguardando</td>
-                            <td><button type="button" class="submit-button" disabled>🔒 Bloqueado (opcional)</button>
-                            </td>
+                            <td><input type="date" name="dataRetornoAlmoco"></td>
+                            <td><input type="time" name="horaRetornoAlmoco"></td>
+                            <td><button type="submit" class="submit-button">Salvar</button></td>
                         </tr>
                         <tr>
                             <td>Saída do Dia</td>
-                            <td>Aguardando</td>
-                            <td><button type="button" class="submit-button" disabled>🔒 Bloqueado (opcional)</button>
-                            </td>
+                            <td><input type="date" name="dataSaidaDia"></td>
+                            <td><input type="time" name="horaSaidaDia"></td>
+                            <td><button type="submit" class="submit-button">Salvar</button></td>
                         </tr>
                     </tbody>
                 </table>

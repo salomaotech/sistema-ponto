@@ -28,7 +28,7 @@
                 <input type="hidden" th:field="*{id_justificativa}" />
 
                 <label for="funcionarios">Funcionário:</label>
-                <select name="funcionarios" id="funcionarios" required>
+                <select name="funcionarios" id="funcionarios">
                     <option value="">Selecione</option>
                     <th:block th:each="f : ${listaFuncionarios}">
                         <option th:value="${f.id_funcionario}" th:text="${f.nome}"
@@ -38,8 +38,12 @@
                 </select>
 
                 <br>
+                <label for="dataFalta">Data da Falta:</label>
+                <input type="date" id="dataFalta" name="dataFalta"
+                    th:value="${#temporals.format(justificativa.dataFalta, 'yyyy-MM-dd')}" />
+                <br>
                 <label for="descricao">Descrição:</label>
-                <textarea th:field="*{descricao}" id="descricao" required></textarea>
+                <textarea th:field="*{descricao}" id="descricao"></textarea>
 
                 <button type="submit" class="submit-button">Salvar Justificativa</button>
 

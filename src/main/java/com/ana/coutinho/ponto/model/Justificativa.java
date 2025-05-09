@@ -1,5 +1,7 @@
 package com.ana.coutinho.ponto.model;
 
+import java.time.LocalDate;
+
 import jakarta.persistence.*;
 
 @Entity
@@ -9,6 +11,7 @@ public class Justificativa {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id_justificativa;
 
+    private LocalDate dataFalta;
     private String descricao;
 
     @ManyToOne
@@ -23,12 +26,12 @@ public class Justificativa {
         this.id_justificativa = id_justificativa;
     }
 
-    public Funcionarios getFuncionarios() {
-        return funcionarios;
+    public LocalDate getDataFalta() {
+        return dataFalta;
     }
 
-    public void setFuncionarios(Funcionarios funcionarios) {
-        this.funcionarios = funcionarios;
+    public void setDataFalta(LocalDate dataFalta) {
+        this.dataFalta = dataFalta;
     }
 
     public String getDescricao() {
@@ -37,6 +40,14 @@ public class Justificativa {
 
     public void setDescricao(String descricao) {
         this.descricao = descricao;
+    }
+
+    public Funcionarios getFuncionarios() {
+        return funcionarios;
+    }
+
+    public void setFuncionarios(Funcionarios funcionarios) {
+        this.funcionarios = funcionarios;
     }
 
 }

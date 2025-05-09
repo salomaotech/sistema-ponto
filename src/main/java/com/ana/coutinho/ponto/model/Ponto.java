@@ -37,27 +37,27 @@ public class Ponto {
         this.id_registro = id_registro;
     }
 
-    public Funcionarios getCadastroFuncionarios() {
+    public Funcionarios getFuncionarios() {
         return funcionarios;
     }
 
-    public void setCadastroFuncionarios(Funcionarios funcionarios) {
+    public void setFuncionarios(Funcionarios funcionarios) {
         this.funcionarios = funcionarios;
     }
 
-    public Turnos getCadastroTurnos() {
+    public Turnos getTurnos() {
         return turnos;
     }
 
-    public void setCadastroTurnos(Turnos turnos) {
+    public void setTurnos(Turnos turnos) {
         this.turnos = turnos;
     }
 
-    public Justificativa getCadastroJustificativa() {
+    public Justificativa getJustificativa() {
         return justificativa;
     }
 
-    public void setCadastroJustificativa(Justificativa justificativa) {
+    public void setJustificativa(Justificativa justificativa) {
         this.justificativa = justificativa;
     }
 

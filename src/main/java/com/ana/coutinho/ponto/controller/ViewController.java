@@ -179,6 +179,7 @@ public class ViewController {
     public ModelAndView pesquisarJustificativa() {
 
         ModelAndView mv = new ModelAndView("pesquisa_justificativa");
+        mv.addObject("listaFuncionarios", funcionariosRepository.findAll());
         mv.addObject("justificativas", justificativaRepository.findAll());
         return mv;
 
@@ -186,12 +187,14 @@ public class ViewController {
 
     @GetMapping("/cadastro_ponto")
     public ModelAndView cadastroPonto() {
+
         ModelAndView mv = new ModelAndView("cadastro_ponto");
         mv.addObject("ponto", new Ponto());
         mv.addObject("listaFuncionarios", funcionariosRepository.findAll());
         mv.addObject("listaTurnos", turnosRepository.findAll());
         mv.addObject("listaJustificativas", justificativaRepository.findAll());
         return mv;
+
     }
 
     @GetMapping("/cadastro_ponto/{id}")

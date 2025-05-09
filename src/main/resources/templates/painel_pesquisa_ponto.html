@@ -25,15 +25,6 @@
 
             <form th:action="@{/tela/painel_pesquisa_ponto}" method="get">
 
-                <label for="funcionarios">* Funcionário:</label>
-                <select name="idFuncionario" id="funcionarios" required>
-                    <option value="">Selecione</option>
-                    <th:block th:each="f : ${listaFuncionarios}">
-                        <option th:value="${f.id_funcionario}" th:text="${f.nome}"
-                            th:selected="${idFuncionario != null and idFuncionario == f.id_funcionario}"></option>
-                    </th:block>
-                </select>
-
                 <label for="dataInicio">Data inicial:</label>
                 <input type="date" id="dataInicio" name="dataInicio"
                     th:value="${#temporals.format(dataInicio, 'yyyy-MM-dd')}" />

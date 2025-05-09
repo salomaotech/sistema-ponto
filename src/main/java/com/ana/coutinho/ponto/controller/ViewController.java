@@ -308,7 +308,6 @@ public class ViewController {
             @RequestParam(value = "dataFim", required = false) String dataFimStr) {
 
         ModelAndView mv = new ModelAndView("painel_pesquisa_ponto");
-
         List<Object[]> resultados = new ArrayList<>();
 
         // Parse das datas
@@ -316,25 +315,40 @@ public class ViewController {
         LocalDate dataFim = null;
 
         try {
+
+            // Se dataInicio não for informada, pega a data de hoje
             if (dataInicioStr != null && !dataInicioStr.isEmpty()) {
+
                 dataInicio = LocalDate.parse(dataInicioStr);
+
+            } else {
+
+                // Atribui a data de hoje
+                dataInicio = LocalDate.now();
+
             }
+
             if (dataFimStr != null && !dataFimStr.isEmpty()) {
+
                 dataFim = LocalDate.parse(dataFimStr);
+
             }
 
             // Se data final for nula, use a mesma da data inicial
             if (dataInicio != null && dataFim == null) {
+
                 dataFim = dataInicio;
+
             }
 
         } catch (Exception ignored) {
+
         }
 
         // Buscar funcionários e pontos, usando LEFT JOIN
         resultados = pontoRepository.buscarFuncionariosComPontos(dataInicio, dataFim);
+
         mv.addObject("funcionariosComPonto", resultados);
-        mv.addObject("listaFuncionarios", funcionariosRepository.findAll());
         mv.addObject("idFuncionario", idFuncionario);
         mv.addObject("dataInicio", dataInicio);
         mv.addObject("dataFim", dataFim);

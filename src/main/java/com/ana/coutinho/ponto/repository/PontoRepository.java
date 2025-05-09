@@ -16,7 +16,8 @@ public interface PontoRepository extends JpaRepository<Ponto, Long> {
         @Query("SELECT p FROM Ponto p WHERE " +
                         "(:idFuncionario IS NULL OR p.funcionarios.id_funcionario = :idFuncionario) AND " +
                         "(:dataInicio IS NULL OR p.data >= :dataInicio) AND " +
-                        "(:dataFim IS NULL OR p.data <= :dataFim)")
+                        "(:dataFim IS NULL OR p.data <= :dataFim) " +
+                        "ORDER BY p.data ASC")
         List<Ponto> buscarPorFiltros(@Param("idFuncionario") Long idFuncionario,
                         @Param("dataInicio") LocalDate dataInicio,
                         @Param("dataFim") LocalDate dataFim);
@@ -25,7 +26,8 @@ public interface PontoRepository extends JpaRepository<Ponto, Long> {
         @Query("SELECT f, p FROM Funcionarios f LEFT JOIN Ponto p ON f.id_funcionario = p.funcionarios.id_funcionario "
                         +
                         "AND (:dataInicio IS NULL OR p.data >= :dataInicio) " +
-                        "AND (:dataFim IS NULL OR p.data <= :dataFim)")
+                        "AND (:dataFim IS NULL OR p.data <= :dataFim) " +
+                        "ORDER BY p.data ASC")
         List<Object[]> buscarFuncionariosComPontos(@Param("dataInicio") LocalDate dataInicio,
                         @Param("dataFim") LocalDate dataFim);
 

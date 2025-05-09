@@ -27,17 +27,14 @@
 
                 <div class="input-box">
                     <input th:field="*{username}" placeholder="Nome de usuário" type="text" required>
-                    <i class="bx bxs-user"></i>
                 </div>
 
                 <div class="input-box">
                     <input th:field="*{email}" placeholder="E-mail" type="email" required>
-                    <i class="bx bxs-envelope"></i>
                 </div>
 
                 <div class="input-box">
                     <input th:field="*{password}" placeholder="Senha" type="password" required>
-                    <i class="bx bxs-lock-alt"></i>
                 </div>
 
                 <div class="input-box" th:if="${mensagemUsuarioExiste != null}">

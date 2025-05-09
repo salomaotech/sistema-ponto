@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Consulta de Pontos</title>
+    <title>Gerar relatório de Pontos</title>
 
     <link rel="stylesheet" type="text/css" th:href="@{/css/home-style.css}">
     <link rel="stylesheet" type="text/css" th:href="@{/css/cadastro-style.css}">
@@ -21,9 +21,9 @@
         <div class="container">
 
             <button class="back-button" onclick="window.history.back()">←</button>
-            <h1>Consulta de Pontos</h1>
+            <h1>Gerar relatório de Pontos</h1>
 
-            <form th:action="@{/tela/pesquisa_ponto}" method="get">
+            <form th:action="@{/tela/pesquisa_relatorio}" method="get">
 
                 <label for="funcionarios">* Funcionário:</label>
                 <select name="idFuncionario" id="funcionarios" required>

@@ -392,53 +392,43 @@ public class ViewController {
 
     /* Relacionado ao relatório */
     @GetMapping("/pesquisa_relatorio")
-    public ModelAndView pesquisarRelatorio(
+    public ModelAndView pesquisa_relatorio(
             @RequestParam(value = "idFuncionario", required = false) Long idFuncionario,
             @RequestParam(value = "dataInicio", required = false) String dataInicioStr,
             @RequestParam(value = "dataFim", required = false) String dataFimStr) {
 
         ModelAndView mv = new ModelAndView("pesquisa_relatorio");
-        List<Object[]> resultados = new ArrayList<>();
+        List<Ponto> pontos = new ArrayList<>();
 
-        // Parse das datas
+        mv.addObject("listaFuncionarios", funcionariosRepository.findAll());
+
         LocalDate dataInicio = null;
         LocalDate dataFim = null;
 
         try {
-
-            // Se dataInicio não for informada, pega a data de hoje
             if (dataInicioStr != null && !dataInicioStr.isEmpty()) {
-
                 dataInicio = LocalDate.parse(dataInicioStr);
-
-            } else {
-
-                // Atribui a data de hoje
-                dataInicio = LocalDate.now();
-
             }
-
             if (dataFimStr != null && !dataFimStr.isEmpty()) {
-
                 dataFim = LocalDate.parse(dataFimStr);
-
             }
 
             // Se data final for nula, use a mesma da data inicial
             if (dataInicio != null && dataFim == null) {
-
                 dataFim = dataInicio;
-
             }
 
         } catch (Exception ignored) {
+        }
+
+        // Isto evita consultar todos os registros
+        if (idFuncionario != null) {
+
+            pontos = pontoRepository.buscarPorFiltros(idFuncionario, dataInicio, dataFim);
 
         }
 
-        // Buscar funcionários e pontos, usando LEFT JOIN
-        resultados = pontoRepository.buscarFuncionariosComPontos(dataInicio, dataFim);
-
-        mv.addObject("funcionariosComPonto", resultados);
+        mv.addObject("pontos", pontos);
         mv.addObject("idFuncionario", idFuncionario);
         mv.addObject("dataInicio", dataInicio);
         mv.addObject("dataFim", dataFim);

@@ -21,4 +21,12 @@ public interface PontoRepository extends JpaRepository<Ponto, Long> {
                         @Param("dataInicio") LocalDate dataInicio,
                         @Param("dataFim") LocalDate dataFim);
 
+        // Pesquisa todos os usuários, mesmo que não tenham batido ponto
+        @Query("SELECT f, p FROM Funcionarios f LEFT JOIN Ponto p ON f.id_funcionario = p.funcionarios.id_funcionario "
+                        +
+                        "AND (:dataInicio IS NULL OR p.data >= :dataInicio) " +
+                        "AND (:dataFim IS NULL OR p.data <= :dataFim)")
+        List<Object[]> buscarFuncionariosComPontos(@Param("dataInicio") LocalDate dataInicio,
+                        @Param("dataFim") LocalDate dataFim);
+
 }

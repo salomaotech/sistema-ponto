@@ -20,42 +20,10 @@
 
         <div class="container">
 
-            <!-- Painel principal (o menu será adicionado via JS antes disso) -->
-            <div class="main-panel">
-
-                <h1>Painel de Ponto</h1>
-
-                <!-- Formulário de pesquisa por data -->
-                <form th:action="@{/ponto/pesquisar}" method="get" class="form-pesquisa">
-                    <label for="dataPesquisa">Data:</label>
-                    <input type="date" name="data" id="dataPesquisa" required>
-                    <button type="submit" class="submit-button">Pesquisar</button>
-                </form>
-
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Funcionário</th>
-                            <th>Entrada</th>
-                            <th>Saída Almoço</th>
-                            <th>Retorno Almoço</th>
-                            <th>Saída</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr th:each="ponto : ${listaPontos}">
-                            <td th:text="${ponto.funcionario.nome}">João</td>
-                            <td th:text="${ponto.entrada}">08:00</td>
-                            <td th:text="${ponto.saidaAlmoco}">12:00</td>
-                            <td th:text="${ponto.retornoAlmoco}">13:00</td>
-                            <td th:text="${ponto.saida}">17:00</td>
-                        </tr>
-                    </tbody>
-                </table>
-
-            </div>
+            <h1>Home</h1>
 
         </div>
+
     </main>
 
     <script th:src="@{/js/header.js}"></script>

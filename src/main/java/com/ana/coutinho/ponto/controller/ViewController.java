@@ -417,6 +417,39 @@ public class ViewController {
         return totalHoras;
     }
 
+    public double calcularHorasTrabalhadasFuncionario(LocalTime entrada,
+            LocalTime pausa,
+            LocalTime retorno,
+            LocalTime saida) {
+
+        // --- Caso 1: Funcionário não fez pausa (pausa e retorno são null) ---
+        if (pausa == null && retorno == null) {
+            if (entrada != null && saida != null && entrada.isBefore(saida)) {
+                long minutosTrabalhados = Duration.between(entrada, saida).toMinutes();
+                return minutosTrabalhados / 60.0; // Horas em double
+            }
+            return 0.0; // Se entrada/saída forem inválidas
+        }
+
+        // --- Caso 2: Funcionário fez pausa (cálculo normal) ---
+        double horasTrabalhadas = 0.0;
+
+        // Horas antes da pausa (entrada → pausa)
+        if (entrada != null && pausa != null && entrada.isBefore(pausa)) {
+            long minutosAntesPausa = Duration.between(entrada, pausa).toMinutes();
+            horasTrabalhadas += minutosAntesPausa / 60.0;
+        }
+
+        // Horas depois da pausa (retorno → saída)
+        if (retorno != null && saida != null && retorno.isBefore(saida)) {
+            long minutosDepoisPausa = Duration.between(retorno, saida).toMinutes();
+            horasTrabalhadas += minutosDepoisPausa / 60.0;
+        }
+
+        return horasTrabalhadas;
+
+    }
+
     /* Relacionado ao relatório */
     @GetMapping("/pesquisa_relatorio")
     public ModelAndView pesquisa_relatorio(
@@ -456,15 +489,16 @@ public class ViewController {
         }
 
         Turnos turno = turnosRepository.findAll().get(0);
+
+        // Calcula as horas que a empresa deve trabalhar diariamente
         double horasDeveTrabalhar = calcularHorasTrabalhadas(turno.getEntradaPadrao(), turno.getPausaPadrao(),
                 turno.getRetornoPadrao(), turno.getSaidaPadrao());
 
         for (Ponto p : pontos) {
 
-            LocalTime entrada = p.getHorarioEntrada();
-            LocalTime pausa = p.getHorarioPausa();
-            LocalTime retorno = p.getHorarioRetorno();
-            LocalTime saida = p.getHorarioSaida();
+            // Calcula as horas reais trabalhadas pelo funcionario
+            double horasTrabalhadas = calcularHorasTrabalhadasFuncionario(p.getHorarioEntrada(), p.getHorarioPausa(),
+                    p.getHorarioRetorno(), p.getHorarioSaida());
 
         }
 
@@ -472,7 +506,7 @@ public class ViewController {
         mv.addObject("idFuncionario", idFuncionario);
         mv.addObject("dataInicio", dataInicio);
         mv.addObject("dataFim", dataFim);
-        mv.addObject("teste", horasDeveTrabalhar);
+        mv.addObject("teste", teste);
 
         return mv;
 

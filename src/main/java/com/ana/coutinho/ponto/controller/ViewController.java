@@ -18,8 +18,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @Controller
@@ -428,10 +431,27 @@ public class ViewController {
 
         }
 
+        Turnos turno = turnosRepository.findAll().get(0);
+
+        LocalTime entradaPadrao = turno.getEntradaPadrao();
+        LocalTime pausaPadrao = turno.getPausaPadrao();
+        LocalTime retornoPadrao = turno.getRetornoPadrao();
+        LocalTime saidaPadrao = turno.getSaidaPadrao();
+
+        for (Ponto p : pontos) {
+
+            LocalTime entrada = p.getHorarioEntrada();
+            LocalTime pausa = p.getHorarioPausa();
+            LocalTime retorno = p.getHorarioRetorno();
+            LocalTime saida = p.getHorarioSaida();
+
+        }
+
         mv.addObject("pontos", pontos);
         mv.addObject("idFuncionario", idFuncionario);
         mv.addObject("dataInicio", dataInicio);
         mv.addObject("dataFim", dataFim);
+        mv.addObject("teste", pausaPadrao);
 
         return mv;
 

@@ -424,11 +424,16 @@ public class ViewController {
 
         // --- Caso 1: Funcionário não fez pausa (pausa e retorno são null) ---
         if (pausa == null && retorno == null) {
+
             if (entrada != null && saida != null && entrada.isBefore(saida)) {
+
                 long minutosTrabalhados = Duration.between(entrada, saida).toMinutes();
-                return minutosTrabalhados / 60.0; // Horas em double
+                return minutosTrabalhados / 60.0;
+
             }
-            return 0.0; // Se entrada/saída forem inválidas
+
+            return 0.0;
+
         }
 
         // --- Caso 2: Funcionário fez pausa (cálculo normal) ---
@@ -459,6 +464,7 @@ public class ViewController {
 
         ModelAndView mv = new ModelAndView("pesquisa_relatorio");
         List<Ponto> pontos = new ArrayList<>();
+        Turnos turno = turnosRepository.findAll().get(0);
 
         mv.addObject("listaFuncionarios", funcionariosRepository.findAll());
 
@@ -466,19 +472,28 @@ public class ViewController {
         LocalDate dataFim = null;
 
         try {
+
             if (dataInicioStr != null && !dataInicioStr.isEmpty()) {
+
                 dataInicio = LocalDate.parse(dataInicioStr);
+
             }
+
             if (dataFimStr != null && !dataFimStr.isEmpty()) {
+
                 dataFim = LocalDate.parse(dataFimStr);
+
             }
 
             // Se data final for nula, use a mesma da data inicial
             if (dataInicio != null && dataFim == null) {
+
                 dataFim = dataInicio;
+
             }
 
         } catch (Exception ignored) {
+
         }
 
         // Isto evita consultar todos os registros
@@ -488,17 +503,19 @@ public class ViewController {
 
         }
 
-        Turnos turno = turnosRepository.findAll().get(0);
-
         // Calcula as horas que a empresa deve trabalhar diariamente
         double horasDeveTrabalhar = calcularHorasTrabalhadas(turno.getEntradaPadrao(), turno.getPausaPadrao(),
                 turno.getRetornoPadrao(), turno.getSaidaPadrao());
 
+        // Lista os pontos batidos pelo funcionario
         for (Ponto p : pontos) {
 
             // Calcula as horas reais trabalhadas pelo funcionario
             double horasTrabalhadas = calcularHorasTrabalhadasFuncionario(p.getHorarioEntrada(), p.getHorarioPausa(),
                     p.getHorarioRetorno(), p.getHorarioSaida());
+
+            // Calcula o saldo (horas extras)
+            double saldoHoras = horasTrabalhadas - horasDeveTrabalhar;
 
         }
 
@@ -506,8 +523,6 @@ public class ViewController {
         mv.addObject("idFuncionario", idFuncionario);
         mv.addObject("dataInicio", dataInicio);
         mv.addObject("dataFim", dataFim);
-        mv.addObject("teste", teste);
-
         return mv;
 
     }

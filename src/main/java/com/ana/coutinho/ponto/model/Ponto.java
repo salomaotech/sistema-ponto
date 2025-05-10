@@ -16,14 +16,6 @@ public class Ponto {
     @JoinColumn(name = "funcionario_id")
     private Funcionarios funcionarios;
 
-    @ManyToOne
-    @JoinColumn(name = "turno_id")
-    private Turnos turnos;
-
-    @ManyToOne
-    @JoinColumn(name = "justificativa_id")
-    private Justificativa justificativa;
-
     private LocalDate data;
     private LocalTime horarioEntrada;
     private LocalTime horarioPausa;
@@ -44,22 +36,6 @@ public class Ponto {
 
     public void setFuncionarios(Funcionarios funcionarios) {
         this.funcionarios = funcionarios;
-    }
-
-    public Turnos getTurnos() {
-        return turnos;
-    }
-
-    public void setTurnos(Turnos turnos) {
-        this.turnos = turnos;
-    }
-
-    public Justificativa getJustificativa() {
-        return justificativa;
-    }
-
-    public void setJustificativa(Justificativa justificativa) {
-        this.justificativa = justificativa;
     }
 
     public LocalDate getData() {

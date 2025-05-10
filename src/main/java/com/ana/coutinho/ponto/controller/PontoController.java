@@ -28,7 +28,8 @@ public class PontoController {
 
         for (Ponto existente : pontosNaData) {
 
-            // Se existe outro registro com mesma data e funcionário, diferente do atual
+            // Se o novo ponto for diferente do atual, não permite criar outro, redirecione
+            // para o existente
             if (!existente.getId_registro().equals(ponto.getId_registro())) {
 
                 return "redirect:/tela/cadastro_ponto/" + existente.getId_registro();
@@ -37,8 +38,8 @@ public class PontoController {
 
         }
 
-        Ponto salvo = repository.save(ponto);
-        return "redirect:/tela/cadastro_ponto/" + salvo.getId_registro();
+        repository.save(ponto);
+        return "redirect:/tela/cadastro_ponto/" + ponto.getId_registro();
 
     }
 

@@ -27,16 +27,18 @@
                 <table>
                     <thead>
                         <tr>
-                            <th>Turno</th>
                             <th>Entrada</th>
+                            <th>Pausa</th>
+                            <th>Retorno</th>
                             <th>Saída</th>
                             <th>Editar</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr th:each="turno : ${turnos}">
-                            <td th:text="${turno.turno}"></td>
                             <td th:text="${turno.entradaPadrao}"></td>
+                            <td th:text="${turno.pausaPadrao}"></td>
+                            <td th:text="${turno.pausaPadrao}"></td>
                             <td th:text="${turno.saidaPadrao}"></td>
                             <td>
                                 <a th:href="@{/tela/cadastro_turno/{id}(id=${turno.id_turno})}" title="Editar">

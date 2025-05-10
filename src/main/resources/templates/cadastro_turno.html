@@ -27,11 +27,14 @@
 
                 <input type="hidden" th:field="*{id_turno}" />
 
-                <label for="turno">Nome do turno:</label>
-                <input type="text" id="turno" th:field="*{turno}" required>
-
                 <label for="entradaPadrao">Horário de entrada padrão:</label>
                 <input type="time" id="entradaPadrao" th:field="*{entradaPadrao}">
+
+                <label for="pausaPadrao">Horário de início da pausa:</label>
+                <input type="time" id="pausaPadrao" th:field="*{pausaPadrao}">
+
+                <label for="retornoPadrao">Horário de retorno da pausa:</label>
+                <input type="time" id="retornoPadrao" th:field="*{retornoPadrao}">
 
                 <label for="saidaPadrao">Horário de saída padrão:</label>
                 <input type="time" id="saidaPadrao" th:field="*{saidaPadrao}">

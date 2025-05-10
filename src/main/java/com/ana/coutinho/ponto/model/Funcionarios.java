@@ -4,13 +4,19 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 
 @Entity
 public class Funcionarios {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id_funcionario;
+    private Long id_funcionario;
+
+    @ManyToOne
+    @JoinColumn(name = "turno_id")
+    private Turnos turnos;
 
     private String nome;
     private String telefone;
@@ -26,12 +32,20 @@ public class Funcionarios {
     private String cidade;
     private String estado;
 
-    public long getId_funcionario() {
+    public Long getId_funcionario() {
         return id_funcionario;
     }
 
-    public void setId_funcionario(long id_funcionario) {
+    public void setId_funcionario(Long id_funcionario) {
         this.id_funcionario = id_funcionario;
+    }
+
+    public Turnos getTurnos() {
+        return turnos;
+    }
+
+    public void setTurnos(Turnos turnos) {
+        this.turnos = turnos;
     }
 
     public String getNome() {

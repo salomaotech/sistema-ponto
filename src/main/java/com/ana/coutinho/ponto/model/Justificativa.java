@@ -9,7 +9,7 @@ public class Justificativa {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id_justificativa;
+    private Long id_justificativa;
 
     private LocalDate dataFalta;
     private String descricao;
@@ -18,11 +18,11 @@ public class Justificativa {
     @JoinColumn(name = "funcionario_id")
     private Funcionarios funcionarios;
 
-    public long getId_justificativa() {
+    public Long getId_justificativa() {
         return id_justificativa;
     }
 
-    public void setId_justificativa(long id_justificativa) {
+    public void setId_justificativa(Long id_justificativa) {
         this.id_justificativa = id_justificativa;
     }
 

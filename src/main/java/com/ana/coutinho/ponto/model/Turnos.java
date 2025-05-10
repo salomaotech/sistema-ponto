@@ -12,26 +12,19 @@ public class Turnos {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id_turno;
+    private Long id_turno;
 
-    private String turno;
     private LocalTime entradaPadrao;
+    private LocalTime pausaPadrao;
+    private LocalTime retornoPadrao;
     private LocalTime saidaPadrao;
 
-    public long getId_turno() {
+    public Long getId_turno() {
         return id_turno;
     }
 
-    public void setId_turno(long id_turno) {
+    public void setId_turno(Long id_turno) {
         this.id_turno = id_turno;
-    }
-
-    public String getTurno() {
-        return turno;
-    }
-
-    public void setTurno(String turno) {
-        this.turno = turno;
     }
 
     public LocalTime getEntradaPadrao() {
@@ -40,6 +33,22 @@ public class Turnos {
 
     public void setEntradaPadrao(LocalTime entradaPadrao) {
         this.entradaPadrao = entradaPadrao;
+    }
+
+    public LocalTime getPausaPadrao() {
+        return pausaPadrao;
+    }
+
+    public void setPausaPadrao(LocalTime pausaPadrao) {
+        this.pausaPadrao = pausaPadrao;
+    }
+
+    public LocalTime getRetornoPadrao() {
+        return retornoPadrao;
+    }
+
+    public void setRetornoPadrao(LocalTime retornoPadrao) {
+        this.retornoPadrao = retornoPadrao;
     }
 
     public LocalTime getSaidaPadrao() {

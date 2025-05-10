@@ -1,5 +1,18 @@
 package com.ana.coutinho.ponto.controller;
 
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
+
 import com.ana.coutinho.ponto.model.Funcionarios;
 import com.ana.coutinho.ponto.model.Justificativa;
 import com.ana.coutinho.ponto.model.Ponto;
@@ -9,23 +22,9 @@ import com.ana.coutinho.ponto.repository.FuncionariosRepository;
 import com.ana.coutinho.ponto.repository.JustificativaRepository;
 import com.ana.coutinho.ponto.repository.PontoRepository;
 import com.ana.coutinho.ponto.repository.TurnosRepository;
-import jakarta.servlet.http.HttpSession;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.servlet.ModelAndView;
+import com.ana.coutinho.ponto.services.CalculaHoras;
 
-import java.time.Duration;
-import java.time.LocalDate;
-import java.time.LocalTime;
-import java.util.ArrayList;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import jakarta.servlet.http.HttpSession;
 
 @Controller
 @RequestMapping("/tela")
@@ -395,66 +394,6 @@ public class ViewController {
 
     }
 
-    public double calcularHorasTrabalhadas(LocalTime entradaPadrao,
-            LocalTime pausaPadrao,
-            LocalTime retornoPadrao,
-            LocalTime saidaPadrao) {
-
-        double totalHoras = 0.0;
-
-        // Calcula horas ANTES da pausa (entrada → pausa)
-        if (entradaPadrao != null && pausaPadrao != null) {
-            long minutosAntesPausa = Duration.between(entradaPadrao, pausaPadrao).toMinutes();
-            totalHoras += minutosAntesPausa / 60.0;
-        }
-
-        // Calcula horas DEPOIS da pausa (retorno → saída)
-        if (retornoPadrao != null && saidaPadrao != null) {
-            long minutosDepoisPausa = Duration.between(retornoPadrao, saidaPadrao).toMinutes();
-            totalHoras += minutosDepoisPausa / 60.0;
-        }
-
-        return totalHoras;
-    }
-
-    public double calcularHorasTrabalhadasFuncionario(LocalTime entrada,
-            LocalTime pausa,
-            LocalTime retorno,
-            LocalTime saida) {
-
-        // --- Caso 1: Funcionário não fez pausa (pausa e retorno são null) ---
-        if (pausa == null && retorno == null) {
-
-            if (entrada != null && saida != null && entrada.isBefore(saida)) {
-
-                long minutosTrabalhados = Duration.between(entrada, saida).toMinutes();
-                return minutosTrabalhados / 60.0;
-
-            }
-
-            return 0.0;
-
-        }
-
-        // --- Caso 2: Funcionário fez pausa (cálculo normal) ---
-        double horasTrabalhadas = 0.0;
-
-        // Horas antes da pausa (entrada → pausa)
-        if (entrada != null && pausa != null && entrada.isBefore(pausa)) {
-            long minutosAntesPausa = Duration.between(entrada, pausa).toMinutes();
-            horasTrabalhadas += minutosAntesPausa / 60.0;
-        }
-
-        // Horas depois da pausa (retorno → saída)
-        if (retorno != null && saida != null && retorno.isBefore(saida)) {
-            long minutosDepoisPausa = Duration.between(retorno, saida).toMinutes();
-            horasTrabalhadas += minutosDepoisPausa / 60.0;
-        }
-
-        return horasTrabalhadas;
-
-    }
-
     /* Relacionado ao relatório */
     @GetMapping("/pesquisa_relatorio")
     public ModelAndView pesquisa_relatorio(
@@ -504,14 +443,16 @@ public class ViewController {
         }
 
         // Calcula as horas que a empresa deve trabalhar diariamente
-        double horasDeveTrabalhar = calcularHorasTrabalhadas(turno.getEntradaPadrao(), turno.getPausaPadrao(),
+        double horasDeveTrabalhar = CalculaHoras.calcularHorasTrabalhadas(turno.getEntradaPadrao(),
+                turno.getPausaPadrao(),
                 turno.getRetornoPadrao(), turno.getSaidaPadrao());
 
         // Lista os pontos batidos pelo funcionario
         for (Ponto p : pontos) {
 
             // Calcula as horas reais trabalhadas pelo funcionario
-            double horasTrabalhadas = calcularHorasTrabalhadasFuncionario(p.getHorarioEntrada(), p.getHorarioPausa(),
+            double horasTrabalhadas = CalculaHoras.calcularHorasTrabalhadasFuncionario(p.getHorarioEntrada(),
+                    p.getHorarioPausa(),
                     p.getHorarioRetorno(), p.getHorarioSaida());
 
             // Calcula o saldo (horas extras)

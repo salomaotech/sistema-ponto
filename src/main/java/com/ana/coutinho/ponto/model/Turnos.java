@@ -19,6 +19,8 @@ public class Turnos {
     private LocalTime retornoPadrao;
     private LocalTime saidaPadrao;
 
+    private double horasSemanais;
+
     public Long getId_turno() {
         return id_turno;
     }
@@ -57,6 +59,14 @@ public class Turnos {
 
     public void setSaidaPadrao(LocalTime saidaPadrao) {
         this.saidaPadrao = saidaPadrao;
+    }
+
+    public double getHorasSemanais() {
+        return horasSemanais;
+    }
+
+    public void setHorasSemanais(double horasSemanais) {
+        this.horasSemanais = horasSemanais;
     }
 
 }

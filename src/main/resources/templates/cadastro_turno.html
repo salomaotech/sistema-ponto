@@ -28,16 +28,19 @@
                 <input type="hidden" th:field="*{id_turno}" />
 
                 <label for="entradaPadrao">Horário de entrada padrão:</label>
-                <input type="time" id="entradaPadrao" th:field="*{entradaPadrao}">
+                <input type="time" id="entradaPadrao" th:field="*{entradaPadrao}" required>
 
                 <label for="pausaPadrao">Horário de início da pausa:</label>
-                <input type="time" id="pausaPadrao" th:field="*{pausaPadrao}">
+                <input type="time" id="pausaPadrao" th:field="*{pausaPadrao}" required>
 
                 <label for="retornoPadrao">Horário de retorno da pausa:</label>
-                <input type="time" id="retornoPadrao" th:field="*{retornoPadrao}">
+                <input type="time" id="retornoPadrao" th:field="*{retornoPadrao}" required>
 
                 <label for="saidaPadrao">Horário de saída padrão:</label>
-                <input type="time" id="saidaPadrao" th:field="*{saidaPadrao}">
+                <input type="time" id="saidaPadrao" th:field="*{saidaPadrao}" required>
+
+                <label for="horasSemanais">Horas de trabalho semanais (44 Horas):</label>
+                <input type="number" id="horasSemanais" th:field="*{horasSemanais}" required>
 
                 <button type="submit" class="submit-button">Concluir Cadastro</button>
 

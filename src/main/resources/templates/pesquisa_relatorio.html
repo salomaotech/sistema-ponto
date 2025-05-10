@@ -58,6 +58,7 @@
                         <th>Pausa</th>
                         <th>Retorno</th>
                         <th>Saída</th>
+                        <th>Hr. Extra</th>
                         <th>Editar</th> <!-- Nova coluna -->
                     </tr>
                 </thead>
@@ -68,6 +69,7 @@
                         <td th:text="${p.horarioPausa}"></td>
                         <td th:text="${p.horarioRetorno}"></td>
                         <td th:text="${p.horarioSaida}"></td>
+                        <td th:text="${p.horasExtras}"></td>
                         <td>
                             <a th:href="@{'/tela/cadastro_ponto/' + ${p.id_registro}}">✏️</a> <!-- Link para edição -->
                         </td>

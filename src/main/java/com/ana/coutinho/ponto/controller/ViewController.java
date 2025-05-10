@@ -517,6 +517,9 @@ public class ViewController {
             // Calcula o saldo (horas extras)
             double saldoHoras = horasTrabalhadas - horasDeveTrabalhar;
 
+            // Popula as horas extras
+            p.setHorasExtras(saldoHoras);
+
         }
 
         mv.addObject("pontos", pontos);

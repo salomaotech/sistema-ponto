@@ -22,6 +22,9 @@ public class Ponto {
     private LocalTime horarioRetorno;
     private LocalTime horarioSaida;
 
+    @Transient // Não será mapeado para o banco de dados
+    private double horasExtras;
+
     public Long getId_registro() {
         return id_registro;
     }
@@ -76,6 +79,14 @@ public class Ponto {
 
     public void setHorarioSaida(LocalTime horarioSaida) {
         this.horarioSaida = horarioSaida;
+    }
+
+    public double getHorasExtras() {
+        return horasExtras;
+    }
+
+    public void setHorasExtras(double horasExtras) {
+        this.horasExtras = horasExtras;
     }
 
 }

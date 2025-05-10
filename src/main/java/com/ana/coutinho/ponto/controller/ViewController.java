@@ -17,6 +17,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
+
+import java.time.Duration;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
@@ -393,6 +395,28 @@ public class ViewController {
 
     }
 
+    public double calcularHorasTrabalhadas(LocalTime entradaPadrao,
+            LocalTime pausaPadrao,
+            LocalTime retornoPadrao,
+            LocalTime saidaPadrao) {
+
+        double totalHoras = 0.0;
+
+        // Calcula horas ANTES da pausa (entrada → pausa)
+        if (entradaPadrao != null && pausaPadrao != null) {
+            long minutosAntesPausa = Duration.between(entradaPadrao, pausaPadrao).toMinutes();
+            totalHoras += minutosAntesPausa / 60.0;
+        }
+
+        // Calcula horas DEPOIS da pausa (retorno → saída)
+        if (retornoPadrao != null && saidaPadrao != null) {
+            long minutosDepoisPausa = Duration.between(retornoPadrao, saidaPadrao).toMinutes();
+            totalHoras += minutosDepoisPausa / 60.0;
+        }
+
+        return totalHoras;
+    }
+
     /* Relacionado ao relatório */
     @GetMapping("/pesquisa_relatorio")
     public ModelAndView pesquisa_relatorio(
@@ -432,11 +456,8 @@ public class ViewController {
         }
 
         Turnos turno = turnosRepository.findAll().get(0);
-
-        LocalTime entradaPadrao = turno.getEntradaPadrao();
-        LocalTime pausaPadrao = turno.getPausaPadrao();
-        LocalTime retornoPadrao = turno.getRetornoPadrao();
-        LocalTime saidaPadrao = turno.getSaidaPadrao();
+        double horasDeveTrabalhar = calcularHorasTrabalhadas(turno.getEntradaPadrao(), turno.getPausaPadrao(),
+                turno.getRetornoPadrao(), turno.getSaidaPadrao());
 
         for (Ponto p : pontos) {
 
@@ -451,7 +472,7 @@ public class ViewController {
         mv.addObject("idFuncionario", idFuncionario);
         mv.addObject("dataInicio", dataInicio);
         mv.addObject("dataFim", dataFim);
-        mv.addObject("teste", pausaPadrao);
+        mv.addObject("teste", horasDeveTrabalhar);
 
         return mv;
 
